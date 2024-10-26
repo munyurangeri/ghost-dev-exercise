@@ -1,8 +1,9 @@
 import "./style.css";
+import { html } from "./lib";
 
-document.querySelector("#app").innerHTML = `
-  <div class="m-10 p-10">
-    <span class="text-red-300 font-semibold"> Red text</span>
-    hello darkness my friend, I come to say hullo!
-  </div>
-`;
+import Layout from "./components/Layout";
+import StoriesPage from "./StoriesPage";
+
+document
+  .querySelector("#app")
+  .innerHTML = html`${Layout({ component: StoriesPage() })}`;

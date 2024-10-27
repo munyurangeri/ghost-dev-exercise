@@ -1,3 +1,36 @@
+function reactivePrimitive(initialValue) {
+  let value = initialValue;
+  const observers = new Set();
+
+  function notify() {
+    observers.forEach((observer) => observer(value));
+  }
+
+  function set(newValue) {
+    if (newValue !== value) {
+      value = newValue;
+      notify();
+    }
+  }
+
+  function get() {
+    return value;
+  }
+
+  function subscribe(callback) {
+    observers.add(() => callback(value));
+
+    return () => observers.delete(callback);
+  }
+
+  return { get, set, subscribe };
+}
+
+export function reactive(initialValue) {
+  if (!Array.isArray(initialValue) || typeof initialValue !== "object")
+    return reactivePrimitive(initialValue);
+}
+
 const eventListenersRegistry = [];
 
 export function delegateEvent(type, selector, callback, parent = document) {

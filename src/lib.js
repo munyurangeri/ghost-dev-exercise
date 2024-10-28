@@ -34,6 +34,7 @@ export function reactive(initialValue) {
 const eventListenersRegistry = [];
 
 export function delegateEvent(type, selector, callback, parent = document) {
+  console.log({ type, selector });
   parent.addEventListener(type, (event) => {
     if (event.target.matches(selector)) {
       callback(event);
@@ -50,7 +51,7 @@ export function clearEventListners() {
   eventListenersRegistry.length = 0;
 }
 
-window.addEventListener("beforeunload", clearEventListners);
+// window.addEventListener("beforeunload", clearEventListners);
 
 export function html([first, ...strings], ...values) {
   return values

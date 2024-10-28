@@ -11,7 +11,7 @@ const PlayButton = ({
 </svg>
 `;
 
-  const classes = `${selector} flex justify-center items-center w-[68px] h-10 p-2 rounded ${className}`;
+  const classes = `${selector} pointer-events-auto flex justify-center items-center w-[68px] h-10 p-2 rounded ${className}`;
 
   if (callback) {
     delegateEvent("click", `.${selector}`, callback);

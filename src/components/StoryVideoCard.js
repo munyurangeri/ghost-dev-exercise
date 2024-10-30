@@ -9,11 +9,9 @@ const StoryVideoCard = ({}) => {
     "../../data/images/pic-1.jpg",
   ];
 
-  const imagesMarkup = imagesUrls
-    .map((imageUrl) => {
-      return `<img src="${imageUrl}" class="w-full xl:w-11/12 h-auto xl:h-[29.586rem] flex-none rounded snap-center" />`;
-    })
-    .join(" ");
+  const imagesMarkup = imagesUrls.map((imageUrl) => {
+    return `<img src="${imageUrl}" class="w-full xl:w-11/12 h-auto xl:h-[29.586rem] flex-none rounded snap-center" />`;
+  });
 
   const storyImages = `
     <div class="relative">
@@ -28,15 +26,13 @@ const StoryVideoCard = ({}) => {
     </div>
   `;
 
-  const storyImagesSwitchButtons = imagesUrls
-    .map((imageUrl, index) => {
-      return `${ImageSwitcher({
-        selector: `switcher-${index}`,
-      })}`;
-    })
-    .join(" ");
+  const storyImagesSwitchButtons = imagesUrls.map((imageUrl, index) => {
+    return `${ImageSwitcher({
+      selector: `switcher-${index}`,
+    })}`;
+  });
 
-  const markups = `
+  return html`
     <div class="flex flex-col justify-center items-center gap-5 w-auto h-auto xl:mt-[2.3555rem]">
       <div id="card-body" class="rounded overflow-hidden">
         ${storyImages}        
@@ -45,8 +41,6 @@ const StoryVideoCard = ({}) => {
         ${storyImagesSwitchButtons}
       </div>
     </div>`;
-
-  return html`${markups}`;
 };
 
 export default StoryVideoCard;

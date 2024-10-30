@@ -11,14 +11,14 @@ const StoryVideoCard = ({}) => {
 
   const imagesMarkup = imagesUrls
     .map((imageUrl) => {
-      return `<img src="${imageUrl}" class="w-11/12 xl:w-auto h-auto xl:h-[29.586rem] flex-none rounded snap-center" />`;
+      return `<img src="${imageUrl}" class="w-full xl:w-11/12 h-auto xl:h-[29.586rem] flex-none rounded snap-center" />`;
     })
     .join(" ");
 
   const storyImages = `
     <div class="relative">
       <div class="w-full xl:w-[50rem] overflow-x-auto scrollbar-hidden">
-        <div class="flex flex-nowrap space-x-2 xl:space-x-8 snap-x">
+        <div class="flex flex-nowrap space-x-4 xl:space-x-8 snap-x">
           ${imagesMarkup}
         </div>
       </div>
@@ -38,7 +38,7 @@ const StoryVideoCard = ({}) => {
 
   const markups = `
     <div class="flex flex-col justify-center items-center gap-5 w-auto h-auto xl:mt-[2.3555rem]">
-      <div id="card-body" class="transition-all duration-300 ease-in-out translate-y-0">
+      <div id="card-body" class="rounded overflow-hidden">
         ${storyImages}        
       </div>
       <div id="images-switcher" class="flex justify-center xl:justify-start gap-2 w-full xl:mt-2">

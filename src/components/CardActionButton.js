@@ -4,8 +4,9 @@ const CardActionButton = ({
   id,
   selector,
   action,
+  isDisabled = false,
   callback,
-  className = "bg-[#262861] text-white hover:shadow-lg",
+  className = "bg-[#262861] text-white hover:text-[#262861] hover:bg-white border-2 border-[#262861]",
 }) => {
   const nextIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -29,13 +30,15 @@ const CardActionButton = ({
       ? previsousIcon
       : closeIcon;
 
-  const classes = `${selector} flex gap-2 w-8 h-8 p-2 rounded-full ${className}`;
+  const classes = `${selector} flex gap-2 p-[16px] rounded-full ${className}`;
 
   if (callback) {
     delegateEvent("click", `.${selector}`, callback);
   }
 
-  return html`<button id="${id}" class="${classes}">${icon}</button> `;
+  return isDisabled
+    ? html`<button id="${id}" class="${classes}" disabled>${icon}</button>`
+    : html`<button id="${id}" class="${classes}">${icon}</button>`;
 };
 
 export default CardActionButton;

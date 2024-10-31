@@ -33,7 +33,7 @@ const StoryVideoCard = ({}) => {
   });
 
   return html`<div
-    class="flex flex-col justify-center items-center gap-5 w-auto h-auto xl:mt-[2.3555rem]"
+    class="flex flex-col justify-center items-center gap-4 w-auto h-auto xl:mt-[2.3555rem]"
   >
     <div id="card-body" class="rounded overflow-hidden">${storyImages}</div>
     <div

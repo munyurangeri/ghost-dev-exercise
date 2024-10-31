@@ -7,7 +7,7 @@ const PrimaryButton = ({
   tag,
   href,
   callback,
-  className = "bg-[#FFC840] text-[#262861] hover:shadow-lg",
+  className = "bg-[#FFC840] text-[#262861] transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-110 duration-150",
 }) => {
   const icon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />

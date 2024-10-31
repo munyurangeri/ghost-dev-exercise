@@ -34,7 +34,6 @@ export function reactive(initialValue) {
 const eventListenersRegistry = [];
 
 export function delegateEvent(type, selector, callback, parent = document) {
-  console.log({ type, selector });
   parent.addEventListener(type, (event) => {
     if (event.target.matches(selector)) {
       callback(event);
@@ -60,11 +59,17 @@ export function html([first, ...strings], ...values) {
     .join("");
 }
 
-export function paginate(text, page = 1, characterPerPage = 212) {
-  if (!text || !text.length) return "No story!";
+export function paginate(text, page = 1, wordsPerPage = 35) {
+  if (!text || !text.length || page < 1)
+    return { pageText: "", nextPage: 0, previousPage: 0 };
 
-  const startIndex = (page - 1) * characterPerPage;
-  const endIndex = startIndex + characterPerPage;
+  const startIndex = (page - 1) * wordsPerPage;
+  const endIndex = startIndex + wordsPerPage;
+  
+  const pageText = text.split(" ").slice(startIndex, endIndex).join(" ");
 
-  return text.substring(startIndex, endIndex);
+  const nextPage = text.split(" ").length - (wordsPerPage * page) > 0 ? page + 1 : 0;
+  const previousPage = page > 1 ? page - 1 : 0;
+
+  return { pageText, nextPage, previousPage };
 }

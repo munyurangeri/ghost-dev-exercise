@@ -2,23 +2,34 @@ import { html, paginate, reactive, delegateEvent } from "../lib";
 import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
 
-const StoryCard = ({ story }) => {
+const StoryCard = ({ storyData, getNextRandomStory }) => {
+  const { family, story } = storyData;
+
+  console.log({ family, story });
+
   const { pageText, nextPage, previousPage } = paginate(story);
   const previousButtonSelector = "card-previous";
   const nextButtonSelector = "card-next";
 
+  const familyName = reactive(family);
   const text = reactive(pageText);
   const next = reactive(nextPage);
   const previous = reactive(previousPage);
 
+  familyName.subscribe((value) => {
+    document.getElementById(
+      "family-name"
+    ).innerHTML = `The ${value} Family's Story`;
+  });
+
   text.subscribe((value) => {
-    const pane = document.getElementById("story-pane");
-    pane.classList.add("-translate-x-full");
+    const pane = document.getElementById("story-text-pane");
+    pane.classList.add("-translate-y-full");
 
     const wait = setTimeout(() => {
       clearTimeout(wait);
       document.getElementById("story-text").innerHTML = value;
-      pane.classList.remove("-translate-x-full");
+      pane.classList.remove("-translate-y-full");
     }, 500);
   });
 
@@ -57,6 +68,24 @@ const StoryCard = ({ story }) => {
     text.set(pageText);
   };
 
+  const handleGetNextStory = async () => {
+    const { family, story } = await getNextRandomStory();
+    const { pageText, nextPage, previousPage } = paginate(story);
+
+    const pane = document.getElementById("story-pane");
+    pane.classList.add("-translate-y-full");
+
+    const wait = setTimeout(() => {
+      clearTimeout(wait);
+
+      text.set(pageText);
+      next.set(nextPage);
+      previous.set(previousPage);
+      familyName.set(family);
+      pane.classList.remove("-translate-y-full");
+    }, 700);
+  };
+
   const markups = `
             <div class="flex flex-col w-full xl:w-[18.625rem] xl:h-[24.875rem]">
                 <div class="flex flex-col-reverse xl:flex-col">
@@ -75,24 +104,29 @@ const StoryCard = ({ story }) => {
                           callback: handleNext,
                         })}
                     </div>
-                    <div class="w-full mb-0 px-0 xl:px-0 overflow-hidden">
-                        <h1 class="inline-block font-bold font-sans text-3xl lg:text-[46px] leading-3xl lg:leading-[43px] tracking-tight mb-4 xl:mb-6">The Roberts Family's Story</h1>
-                        <div id="story-pane" class="h-40 xl:mb-4 transition-all duration-500 ease-in-out translate-x-0">
-                            <p id="story-text" class="text-lg md:text-3xl xl:text-base leading-[23px] font-normal ">
-                                ${text.get()}
-                            </p>
+                    <div class="w-full h-64 xl:mb-4  overflow-hidden">
+                        <div id="story-pane" class="w-full mb-0 px-0 xl:px-0 overflow-hidden transition-all duration-500 ease-in-out translate-y-0">
+                            <h1 id="family-name" class="inline-block font-bold font-sans text-3xl lg:text-[46px] leading-3xl lg:leading-[43px] tracking-tight mb-4 xl:mb-6">
+                                The ${familyName.get()} Family's Story
+                            </h1>
+                            <div class="h-40 overflow-hidden">
+                                <div id="story-text-pane" class="transition-all duration-500 ease-in-out">
+                                    <p id="story-text" class="text-lg md:text-3xl xl:text-base leading-[23px] font-normal ">
+                                        ${text.get()}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex justify-center xl:justify-start m-2">
                     ${PrimaryButton({
-                      id: "one",
+                      id: "get-next-random-story",
                       tag: "button",
-                      selector: "one",
+                      selector: "get-next-random-story",
                       label: "More Client Stories ",
-                      callback: (event) =>
-                        console.log("let's get more stories... ", event),
+                      callback: handleGetNextStory,
                     })}
                 </div>
             </div>

@@ -6,7 +6,7 @@ const StoryVideoCard = ({}) => {
   const imagesUrls = [
     "http://localhost:3000/images/roberts/pic-1.jpg",
     "http://localhost:3000/images/roberts/pic-2.jpg",
-    "http://localhost:3000/images/roberts/pic-1.jpg",
+    "http://localhost:3000/images/no-image.jpg",
   ];
 
   const imagesMarkup = imagesUrls.map((imageUrl) => {

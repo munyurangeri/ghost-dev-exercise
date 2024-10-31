@@ -59,3 +59,12 @@ export function html([first, ...strings], ...values) {
     .filter((x) => (x && x !== true) || x === 0)
     .join("");
 }
+
+export function paginate(text, page = 1, characterPerPage = 212) {
+  if (!text || !text.length) return "No story!";
+
+  const startIndex = (page - 1) * characterPerPage;
+  const endIndex = startIndex + characterPerPage;
+
+  return text.substring(startIndex, endIndex);
+}

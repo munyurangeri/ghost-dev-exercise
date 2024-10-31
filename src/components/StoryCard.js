@@ -1,8 +1,8 @@
-import { html, delegateEvent } from "../lib";
+import { html, paginate } from "../lib";
 import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
 
-const StoryCard = ({}) => {
+const StoryCard = ({ story }) => {
   const markups = `
         <div class="flex flex-col w-full xl:w-[18.625rem] xl:h-[24.875rem]">
             <div class="hidden xl:flex gap-8 mb-8">
@@ -12,10 +12,7 @@ const StoryCard = ({}) => {
             <div class="w-full mb-8 px-0 xl:px-0">
                 <h1 class="inline-block font-bold font-sans text-3xl lg:text-[46px] leading-3xl lg:leading-[43px] tracking-tight mb-4 xl:mb-6">The Roberts Family's Story</h1>
                 <p class=" text-lg md:text-3xl xl:text-base leading-[23px] font-normal ">
-                    The circumstances that might leat to homelessness can include 
-                    loss of income or transportation,
-                    a falling out with loved ones, or an abrupt economic downturn.
-                    For Brandon and Jennifer, it was all of these things.
+                    ${paginate(story)}
                 </p>
             </div>
 

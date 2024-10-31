@@ -4,9 +4,9 @@ import ImageSwitcher from "./ImageSwitcher";
 
 const StoryVideoCard = ({}) => {
   const imagesUrls = [
-    "../../data/images/pic-1.jpg",
-    "../../data/images/pic-2.jpg",
-    "../../data/images/pic-1.jpg",
+    "http://localhost:3000/images/roberts/pic-1.jpg",
+    "http://localhost:3000/images/roberts/pic-2.jpg",
+    "http://localhost:3000/images/roberts/pic-1.jpg",
   ];
 
   const imagesMarkup = imagesUrls.map((imageUrl) => {
@@ -32,15 +32,17 @@ const StoryVideoCard = ({}) => {
     })}`;
   });
 
-  return html`
-    <div class="flex flex-col justify-center items-center gap-5 w-auto h-auto xl:mt-[2.3555rem]">
-      <div id="card-body" class="rounded overflow-hidden">
-        ${storyImages}        
-      </div>
-      <div id="images-switcher" class="flex justify-center xl:justify-start gap-2 w-full xl:mt-2">
-        ${storyImagesSwitchButtons}
-      </div>
-    </div>`;
+  return html`<div
+    class="flex flex-col justify-center items-center gap-5 w-auto h-auto xl:mt-[2.3555rem]"
+  >
+    <div id="card-body" class="rounded overflow-hidden">${storyImages}</div>
+    <div
+      id="images-switcher"
+      class="flex justify-center xl:justify-start gap-2 w-full xl:mt-2"
+    >
+      ${storyImagesSwitchButtons}
+    </div>
+  </div>`;
 };
 
 export default StoryVideoCard;

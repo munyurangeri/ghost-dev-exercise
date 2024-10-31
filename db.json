@@ -1,0 +1,13 @@
+{
+  "stories": [
+    {
+      "id": "1",
+      "family": "roberts",
+      "story": "http://localhost:3000/stories/roberts.txt",
+      "images": [
+        "http://localhost:3000/images/roberts/pic-1.jpg",
+        "http://localhost:3000/images/roberts/pic-2.jpg"
+      ]
+    }
+  ]
+}

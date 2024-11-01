@@ -13,7 +13,7 @@ const StoryPage = async () => {
   const imagesUrls = reactive([]);
 
   const markups = `
-        <section class="w-full h-auto xl:h-screen flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4">          
+        <section class="w-full h-auto xl:h-screen flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4 md:p-10">          
             ${StoryCard({
               storyData: await getStory(),
               getNextRandomStory: getStory,

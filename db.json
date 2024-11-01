@@ -4,7 +4,11 @@
       "id": "1",
       "family": "Nguyen",
       "story": "Linh and Hoa Nguyen moved to the city with dreams of opening their own bakery. After years of saving, they finally opened their shop, but a sudden economic downturn hit hard. With fewer customers, they struggled to stay afloat. To make ends meet, they cut back on supplies and started selling from home. Despite the challenges, their small kitchen became a local favorite, and their perseverance sparked a newfound community support.",
-      "images": ["http://localhost:3000/images/nguyen/pic-1.jpg"]
+      "images": [
+        "http://localhost:3000/images/nguyen/pic-1.jpg",
+        "http://localhost:3000/images/nguyen/pic-5.jpg",
+        "http://localhost:3000/images/nguyen/pic-6.jpg"
+      ]
     },
     {
       "id": "2",

@@ -26,9 +26,37 @@ function reactivePrimitive(initialValue) {
   return { get, set, subscribe };
 }
 
+function reactiveArray(initialArray) {
+  const reactive = reactivePrimitive(initialArray);
+
+  const proxyHandler = {
+    get(target, prop) {
+      if (prop === "subscribe") {
+        return reactive.subscribe;
+      }
+
+      if (prop === "set") {
+        return reactive.set;
+      }
+
+      return target[prop];
+    },
+
+    set(target, prop, value) {
+      target[prop] = value;
+      reactive.set(target);
+    },
+  };
+
+  return new Proxy(initialArray, proxyHandler);
+}
+
 export function reactive(initialValue) {
   if (!Array.isArray(initialValue) || typeof initialValue !== "object")
     return reactivePrimitive(initialValue);
+
+  if (Array.isArray(initialValue) || typeof initialValue !== "object")
+    return reactiveArray(initialValue);
 }
 
 const eventListenersRegistry = [];
@@ -65,10 +93,11 @@ export function paginate(text, page = 1, wordsPerPage = 35) {
 
   const startIndex = (page - 1) * wordsPerPage;
   const endIndex = startIndex + wordsPerPage;
-  
+
   const pageText = text.split(" ").slice(startIndex, endIndex).join(" ");
 
-  const nextPage = text.split(" ").length - (wordsPerPage * page) > 0 ? page + 1 : 0;
+  const nextPage =
+    text.split(" ").length - wordsPerPage * page > 0 ? page + 1 : 0;
   const previousPage = page > 1 ? page - 1 : 0;
 
   return { pageText, nextPage, previousPage };

@@ -4,30 +4,34 @@
       "id": "1",
       "family": "Nguyen",
       "story": "Linh and Hoa Nguyen moved to the city with dreams of opening their own bakery. After years of saving, they finally opened their shop, but a sudden economic downturn hit hard. With fewer customers, they struggled to stay afloat. To make ends meet, they cut back on supplies and started selling from home. Despite the challenges, their small kitchen became a local favorite, and their perseverance sparked a newfound community support.",
-      "images": [
-        "http://localhost:3000/images/roberts/pic-1.jpg",
-        "http://localhost:3000/images/roberts/pic-2.jpg"
-      ]
+      "images": ["http://localhost:3000/images/nguyen/pic-1.jpg"]
     },
     {
       "id": "2",
       "family": "Martinez",
-      "story": "Carlos and Sofia Martinez had just welcomed their first baby when Carlos was laid off from his job. Bills piled up as Sofia took on extra shifts at the hospital. They sold their car, made sacrifices, and found creative ways to stretch their budget. Eventually, Carlos started a side gig repairing bikes, which soon grew into a small business. Though the struggle was tough, it brought the couple closer, teaching them resilience and a deep appreciation for each other."
+      "story": "Carlos and Sofia Martinez had just welcomed their first baby when Carlos was laid off from his job. Bills piled up as Sofia took on extra shifts at the hospital. They sold their car, made sacrifices, and found creative ways to stretch their budget. Eventually, Carlos started a side gig repairing bikes, which soon grew into a small business. Though the struggle was tough, it brought the couple closer, teaching them resilience and a deep appreciation for each other.",
+      "images": [
+        "http://localhost:3000/images/martinez/pic.jpg",
+        "http://localhost:3000/images/martinez/pic-3.jpg"
+      ]
     },
     {
       "id": "3",
       "family": "O’Reilly",
-      "story": "Maeve and Sean O'Reilly lived on the coast, where Sean worked as a fisherman. When a storm destroyed much of the local fishing fleet, Sean’s work halted. They relied on savings and local food banks while Sean took up carpentry for nearby residents. As he rebuilt homes damaged by the storm, he discovered a new passion, leading the O’Reillys to open a small repair shop, which quickly became a community hub. Maeve supported him with her baking, creating a family business."
+      "story": "Maeve and Sean O'Reilly lived on the coast, where Sean worked as a fisherman. When a storm destroyed much of the local fishing fleet, Sean’s work halted. They relied on savings and local food banks while Sean took up carpentry for nearby residents. As he rebuilt homes damaged by the storm, he discovered a new passion, leading the O’Reillys to open a small repair shop, which quickly became a community hub. Maeve supported him with her baking, creating a family business.",
+      "images": []
     },
     {
       "id": "4",
       "family": "Okafor",
-      "story": "The Okafors, Miriam and Chidi, cherished family gatherings in their big, bustling home. When Chidi lost his job, they faced the real fear of losing their home too. To keep their family together, they rented out rooms to friends and even strangers. Over time, their house became a community space, hosting dinners and celebrations that helped pay the bills. What began as a challenge transformed into a chance to create a wider family, bound by shared meals and laughter."
+      "story": "The Okafors, Miriam and Chidi, cherished family gatherings in their big, bustling home. When Chidi lost his job, they faced the real fear of losing their home too. To keep their family together, they rented out rooms to friends and even strangers. Over time, their house became a community space, hosting dinners and celebrations that helped pay the bills. What began as a challenge transformed into a chance to create a wider family, bound by shared meals and laughter.",
+      "images": ["http://localhost:3000/images/okafor/pic-2.jpg"]
     },
     {
       "id": "5",
       "family": "Kumar ",
-      "story": "Anika and Ramesh Kumar moved to the suburbs for a better life. Ramesh worked long hours as a driver, and Anika took care of their two kids. When Ramesh’s van broke down, they were faced with repairs they couldn’t afford. Anika, a skilled seamstress, began selling her handmade clothing online to bridge the gap. Soon, she gained a small following, and her new income supported the family through tough times. Together, they turned their struggle into a journey of teamwork and creativity."
+      "story": "Anika and Ramesh Kumar moved to the suburbs for a better life. Ramesh worked long hours as a driver, and Anika took care of their two kids. When Ramesh’s van broke down, they were faced with repairs they couldn’t afford. Anika, a skilled seamstress, began selling her handmade clothing online to bridge the gap. Soon, she gained a small following, and her new income supported the family through tough times. Together, they turned their struggle into a journey of teamwork and creativity.",
+      "images": []
     }
   ]
 }

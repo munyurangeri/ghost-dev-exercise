@@ -2,10 +2,13 @@ import { html, paginate, reactive, delegateEvent } from "../lib";
 import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
 
-const StoryCard = ({ storyData, getNextRandomStory }) => {
-  const { family, story } = storyData;
+const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
+  const { family, story, images } = storyData;
 
-  console.log({ family, story });
+  const wait = setTimeout(() => {
+    imagesUrls.set(images);
+    clearTimeout(wait);
+  }, 1000);
 
   const { pageText, nextPage, previousPage } = paginate(story);
   const previousButtonSelector = "card-previous";
@@ -51,6 +54,8 @@ const StoryCard = ({ storyData, getNextRandomStory }) => {
     });
   });
 
+  // FIXME: Ensure handles for next and previous use the current story
+
   const handlePrevious = () => {
     const { pageText, nextPage, previousPage } = paginate(
       story,
@@ -69,7 +74,7 @@ const StoryCard = ({ storyData, getNextRandomStory }) => {
   };
 
   const handleGetNextStory = async () => {
-    const { family, story } = await getNextRandomStory();
+    const { family, story, images } = await getNextRandomStory();
     const { pageText, nextPage, previousPage } = paginate(story);
 
     const pane = document.getElementById("story-pane");
@@ -82,6 +87,7 @@ const StoryCard = ({ storyData, getNextRandomStory }) => {
       next.set(nextPage);
       previous.set(previousPage);
       familyName.set(family);
+      imagesUrls.set(images);
       pane.classList.remove("-translate-y-full");
     }, 700);
   };

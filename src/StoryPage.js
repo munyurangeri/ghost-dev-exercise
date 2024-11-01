@@ -1,4 +1,4 @@
-import { html } from "./lib";
+import { html, reactive } from "./lib";
 import StoryCard from "./components/StoryCard";
 import StoryVideoCard from "./components/StoryVideoCard";
 
@@ -10,13 +10,16 @@ const StoryPage = async () => {
     );
   };
 
+  const imagesUrls = reactive([]);
+
   const markups = `
         <section class="w-full h-auto xl:h-screen flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4">          
             ${StoryCard({
               storyData: await getStory(),
               getNextRandomStory: getStory,
+              imagesUrls: imagesUrls,
             })}
-            ${StoryVideoCard({})}
+            ${StoryVideoCard({ imagesUrls })}
         </section>
     `;
 

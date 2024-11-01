@@ -17,7 +17,7 @@ const StoryVideoCard = ({ imagesUrls }) => {
 
   const imagesMarkup = (imagesUrls) =>
     urls(imagesUrls).map((imageUrl) => {
-      return `<img src="${imageUrl}" class="w-full xl:w-11/12 h-52 md:h-[29.586rem] xl:h-[29.586rem] flex-none rounded snap-center" />`;
+      return `<img src="${imageUrl}" alt="family picture" class="w-full xl:w-11/12 h-52 md:h-[29.586rem] xl:h-[29.586rem] flex-none rounded snap-center" />`;
     });
 
   const storyImages = (imagesUrls) => `

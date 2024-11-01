@@ -20,8 +20,8 @@ const PrimaryButton = ({
   }
 
   return tag.trim() === "button"
-    ? html`<button id="${id}" class="${classes}">${label} ${icon}</button> `
-    : html`<a href="${href}" class="${classes} block"> ${label} ${icon}</a>`;
+    ? html`<button id="${id}" aria-label="${label}" class="${classes}">${label} ${icon}</button> `
+    : html`<a href="${href}" aria-label="${label}" class="${classes} block"> ${label} ${icon}</a>`;
 };
 
 export default PrimaryButton;

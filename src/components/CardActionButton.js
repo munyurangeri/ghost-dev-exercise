@@ -37,8 +37,17 @@ const CardActionButton = ({
   }
 
   return isDisabled
-    ? html`<button id="${id}" class="${classes}" disabled>${icon}</button>`
-    : html`<button id="${id}" class="${classes}">${icon}</button>`;
+    ? html`<button
+        id="${id}"
+        aria-label="${action}"
+        class="${classes}"
+        disabled
+      >
+        ${icon}
+      </button>`
+    : html`<button id="${id}" aria-label="${action}" class="${classes}">
+        ${icon}
+      </button>`;
 };
 
 export default CardActionButton;

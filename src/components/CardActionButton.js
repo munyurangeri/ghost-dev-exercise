@@ -6,7 +6,7 @@ const CardActionButton = ({
   action,
   isDisabled = false,
   callback,
-  className = "bg-[#262861] text-white hover:text-[#262861] hover:bg-white border-2 border-[#262861]",
+  className = "bg-[#262861] text-white  border-2 border-[#262861]",
 }) => {
   const nextIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 md:size-10 lg:size-4">
   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -30,7 +30,7 @@ const CardActionButton = ({
       ? previsousIcon
       : closeIcon;
 
-  const classes = `${selector} flex gap-2 p-[16px] md:p-[32px] lg:p-[16px] rounded-full ${className}`;
+  const classes = `${selector} flex gap-2 p-[16px] md:p-[32px] lg:p-[16px] rounded-full ${className} ${!isDisabled ? "hover:text-[#262861] hover:bg-white" : ""}`;
 
   if (callback) {
     delegateEvent("click", `.${selector}`, callback);

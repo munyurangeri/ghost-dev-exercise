@@ -43,8 +43,13 @@ const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
     const buttons = document.querySelectorAll(`.${nextButtonSelector}`);
 
     buttons.forEach((button) => {
-      if (value <= 0) button.setAttribute("disabled", "");
-      else button.removeAttribute("disabled");
+      if (value <= 0) {
+        button.setAttribute("disabled", "");
+        button.classList.remove("hover:text-[#262861]", "hover:bg-white");
+      } else {
+        button.removeAttribute("disabled");
+        button.classList.add("hover:text-[#262861]", "hover:bg-white");
+      }
     });
   });
 
@@ -52,8 +57,13 @@ const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
     const buttons = document.querySelectorAll(`.${previousButtonSelector}`);
 
     buttons.forEach((button) => {
-      if (value <= 0) button.setAttribute("disabled", "");
-      else button.removeAttribute("disabled");
+      if (value <= 0) {
+        button.setAttribute("disabled", "");
+        button.classList.remove("hover:text-[#262861]", "hover:bg-white");
+      } else {
+        button.removeAttribute("disabled");
+        button.classList.add("hover:text-[#262861]", "hover:bg-white");
+      }
     });
   });
 

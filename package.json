@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "server:start": "json-server db.json",
-    "dev": "concurrently \"json-server db.json\" \"vite\"",
+    "server:start": "json-server db.json --static ./data",
+    "dev": "concurrently \"json-server db.json --static ./data\" \"vite\"",
     "build": "vite build",
     "preview": "vite preview"
   },

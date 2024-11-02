@@ -3,7 +3,7 @@ import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
 
 const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
-  const { family, story, images } = storyData;
+  const { id, family, story, images } = storyData;
 
   const wait = setTimeout(() => {
     imagesUrls.set(images);
@@ -13,6 +13,7 @@ const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
   const previousButtonSelector = "card-previous";
   const nextButtonSelector = "card-next";
 
+  const currentId = reactive(id);
   const currentFamily = reactive(family);
   const currentStory = reactive(story);
 
@@ -83,8 +84,11 @@ const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
     const wait = setTimeout(async () => {
       clearTimeout(wait);
 
-      const { family, story, images } = await getNextRandomStory();
+      const { id, family, story, images } = await getNextRandomStory(
+        currentId.get()
+      );
 
+      currentId.set(id);
       currentFamily.set(family);
       currentStory.set(story);
       imagesUrls.set(images);

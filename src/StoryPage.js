@@ -3,11 +3,17 @@ import StoryCard from "./components/StoryCard";
 import StoryVideoCard from "./components/StoryVideoCard";
 
 const StoryPage = async () => {
-  const getStory = async () => {
-    const id = Math.floor(Math.random() * 5) + 1;
-    return await fetch(`http://localhost:3000/stories/${id}`).then((res) =>
-      res.json()
-    );
+  const getStory = async (lastId = 0) => {
+    let id = 0;
+
+    while (!id || id === lastId) {
+      id = Math.floor(Math.random() * 5) + 1;
+    }
+
+    if (id)
+      return await fetch(`http://localhost:3000/stories/${id}`).then((res) =>
+        res.json()
+      );
   };
 
   const imagesUrls = reactive([]);

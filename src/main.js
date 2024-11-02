@@ -1,8 +1,8 @@
-import "./src/style.css";
-import { html } from "./src/lib";
+import "./style.css";
+import { html } from "./lib";
 
-import Layout from "./src/components/Layout";
-import StoryPage from "./src/StoryPage";
+import Layout from "./components/Layout";
+import StoryPage from "./StoryPage";
 
 async function renderPage() {
   document.querySelector("#app").innerHTML = html`${Layout({

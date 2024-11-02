@@ -8,10 +8,19 @@
     />
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json">
     <title>Families'Stories</title>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+        // Register the service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/src/service-worker.js', { type: 'module' }).then(() => {
+                console.log('Service Worker Registered');
+            });
+        }
+    </script>
   </body>
 </html>

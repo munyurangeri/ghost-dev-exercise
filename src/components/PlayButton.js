@@ -20,7 +20,9 @@ const PlayButton = ({
     delegateEvent("click", `.${selector}`, callback);
   }
 
-  return html`<button id="${id}" class="${classes}">${icon}</button> `;
+  return html`<button id="${id}" aria-label="Play" class="${classes}">
+    ${icon}
+  </button> `;
 };
 
 export default PlayButton;

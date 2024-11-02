@@ -1,0 +1,8 @@
+{
+  "name": "Families' Stories",
+  "short_name": "Stories",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F15C22",
+  "theme_color": "#F15C22"
+}

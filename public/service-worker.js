@@ -1,7 +1,7 @@
 importScripts("idb.js");
 
-const DATA_CACHE_NAME = "families-stories-cache-v1";
-const IMAGES_CACHE_NAME = "families-images-cache-v1";
+const FILES_CACHE_NAME = "files-cache-v1";
+const IMAGES_CACHE_NAME = "images-cache-v1";
 const API_END_POINTS = ["/stories/"];
 
 const FILES_TO_CACHE = [
@@ -14,7 +14,7 @@ const FILES_TO_CACHE = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(DATA_CACHE_NAME).then((cache) => {
+    caches.open(FILES_CACHE_NAME).then((cache) => {
       return cache.addAll(FILES_TO_CACHE);
     })
   );
@@ -28,7 +28,7 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
-          if (![DATA_CACHE_NAME, IMAGES_CACHE_NAME].includes(cache)) {
+          if (![FILES_CACHE_NAME, IMAGES_CACHE_NAME].includes(cache)) {
             return caches.delete(cache);
           }
         })
@@ -44,54 +44,42 @@ self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  console.log(request.url);
-
   const isApiRequest = API_END_POINTS.some((el) => {
     return url.pathname.startsWith(el);
   });
 
   if (request.method === "GET" && isApiRequest)
     event.respondWith(handleGetRequest(request));
-  else handleFileRequest(event);
+  else event.respondWith(handleFileRequest(request));
 
   if (request.method === "POST") {
     event.respondWith(handlePostRequest(request));
   }
 });
 
-function handleFileRequest(event) {
-  event.respondWith(
-    caches
-      .match(event.request)
-      .then(async (cache) => {
-        if (cache) return cache;
+async function handleFileRequest(request) {
+  return caches.match(request).then(async (cache) => {
+    if (cache) return cache;
 
-        const response = await fetch(event.request);
+    const response = await fetch(request);
 
-        const url = new URL(event.request.url);
+    const url = new URL(request.url);
 
-        console.log({ url });
+    if (url.pathname.startsWith("/images/")) {
+      const imageCache = await caches.open(IMAGES_CACHE_NAME);
+      imageCache.put(url.href, response.clone());
+    }
 
-        if (url.pathname.startsWith("/images/")) {
-          const imageCache = await caches.open(IMAGES_CACHE_NAME);
-          imageCache.put(url.href, response.clone());
-        }
+    if (
+      url.pathname.startsWith("/assets/index-") ||
+      url.hostname.startsWith("fonts.")
+    ) {
+      const imageCache = await caches.open(FILES_CACHE_NAME);
+      imageCache.put(url.href, response.clone());
+    }
 
-        if (
-          url.pathname.startsWith("/assets/index-") ||
-          url.hostname.startsWith("fonts.")
-        ) {
-          const imageCache = await caches.open(DATA_CACHE_NAME);
-          imageCache.put(url.href, response.clone());
-        }
-
-        return response;
-      })
-      .catch((error) => {
-        // console.log({ error });
-        return new Response("Network error", { status: 500 });
-      })
-  );
+    return response;
+  });
 }
 
 async function handleGetRequest(request) {

@@ -2,6 +2,8 @@ import { html, reactive } from "./lib";
 import StoryCard from "./components/StoryCard";
 import StoryVideoCard from "./components/StoryVideoCard";
 
+const BASE_URL = "http://localhost:3000";
+
 const StoryPage = async () => {
   const getStory = async (lastId = 0) => {
     let id = 0;
@@ -10,10 +12,26 @@ const StoryPage = async () => {
       id = Math.floor(Math.random() * 5) + 1;
     }
 
-    if (id)
-      return await fetch(`http://localhost:3000/stories/${id}`).then((res) =>
-        res.json()
-      );
+    if (id) {
+      try {
+        const response = await fetch(`${BASE_URL}/stories/${id}`);
+
+        const data = await response.json();
+        const res = await fetch(`${BASE_URL}/reads`, {
+          method: "POST",
+          body: JSON.stringify({
+            story: data.family,
+            read_at: new Date(),
+          }),
+        });
+
+        const resData = await res.json();
+
+        return data;
+      } catch (error) {
+        console.log({ getStoryError: error });
+      }
+    }
   };
 
   const imagesUrls = reactive([]);

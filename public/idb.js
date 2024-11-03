@@ -18,7 +18,7 @@ function openDatabase() {
 }
 
 // Save data to IndexedDB
-export async function saveToCache(url, data) {
+async function saveToCache(url, data) {
   const db = await openDatabase();
   const transaction = db.transaction("cache", "readwrite");
   const store = transaction.objectStore("cache");
@@ -32,7 +32,7 @@ export async function saveToCache(url, data) {
 }
 
 // Retrieve data from IndexedDB
-export async function getCachedData(url) {
+async function getCachedData(url) {
   const db = await openDatabase();
   const transaction = db.transaction("cache", "readonly");
   const store = transaction.objectStore("cache");
@@ -46,7 +46,7 @@ export async function getCachedData(url) {
 }
 
 // Save offline POST request
-export async function saveOfflinePostRequest(url, body) {
+async function saveOfflinePostRequest(url, body) {
   const db = await openDatabase();
   const transaction = db.transaction("post-requests", "readwrite");
   const store = transaction.objectStore("post-requests");
@@ -60,7 +60,7 @@ export async function saveOfflinePostRequest(url, body) {
 }
 
 // Retrieve and clear all offline POST requests
-export async function getAndClearOfflinePostRequests() {
+async function getAndClearOfflinePostRequests() {
   const db = await openDatabase();
   const transaction = db.transaction("post-requests", "readwrite");
   const store = transaction.objectStore("post-requests");

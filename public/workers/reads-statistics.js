@@ -13,13 +13,12 @@ self.onerror = function (event) {
   return true;
 };
 
-
-
 async function reads(page = 1, per_page = 20) {
   try {
-    const res = await fetch(
+    const request = new Request(
       `${BASE_URL}/reads?_page=${page}&_per_page=${per_page}`
     );
+    const res = await fetch(request);
 
     const data = await res.json();
 

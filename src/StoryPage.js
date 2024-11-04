@@ -14,18 +14,17 @@ const StoryPage = async () => {
 
     if (id) {
       try {
-        const response = await fetch(`${BASE_URL}/stories/${id}`);
-
+        const request = new Request(`${BASE_URL}/stories/${id}`);
+        const response = await fetch(request);
         const data = await response.json();
-        const res = await fetch(`${BASE_URL}/reads`, {
+
+        await fetch(`${BASE_URL}/reads`, {
           method: "POST",
           body: JSON.stringify({
             story: data.family,
             read_at: new Date(),
           }),
         });
-
-        const resData = await res.json();
 
         return data;
       } catch (error) {

@@ -20,14 +20,16 @@ const StoryVideoCard = ({ imagesUrls }) => {
       return `<img src="${imageUrl}" alt="family picture" class="w-full xl:w-11/12 h-52 md:h-[29.586rem] xl:h-[29.586rem] flex-none rounded snap-center" />`;
     });
 
-  const storyImages = (imagesUrls) => `
+  const storyImages = (imagesUrls) => html`
     <div class="relative">
       <div class="w-full xl:w-[50rem] overflow-x-auto scrollbar-hidden">
         <div class="flex flex-nowrap space-x-4 xl:space-x-8 snap-x">
           ${imagesMarkup(imagesUrls)}
         </div>
       </div>
-      <div class="absolute inset-0 flex justify-center items-center pointer-events-none">
+      <div
+        class="absolute inset-0 flex justify-center items-center pointer-events-none"
+      >
         ${PlayButton({})}
       </div>
     </div>

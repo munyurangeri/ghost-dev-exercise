@@ -1,26 +1,9 @@
-import { html, delegateEvent, reactive } from "../lib";
+import { html } from "../lib";
 import PlayButton from "./PlayButton";
 import ImageSwitcher from "./ImageSwitcher";
 
-const StoryVideoCard = ({ imagesUrls }) => {
-  const urls = (imagesUrls) =>
-    imagesUrls && imagesUrls.length
-      ? imagesUrls
-      : ["http://localhost:3000/images/no-image.jpg"];
-
-  imagesUrls.subscribe((urls) => {
-    document.getElementById("card-body").innerHTML = html`${storyImages(urls)}`;
-    document.getElementById(
-      "images-switcher"
-    ).innerHTML = html`${storyImagesSwitchButtons(urls)}`;
-  });
-
-  const imagesMarkup = (imagesUrls) =>
-    urls(imagesUrls).map((imageUrl) => {
-      return `<img src="${imageUrl}" alt="family picture" class="w-full xl:w-11/12 h-52 md:h-[29.586rem] xl:h-[29.586rem] flex-none rounded snap-center" />`;
-    });
-
-  const storyImages = (imagesUrls) => html`
+const StoryImages = (imagesUrls) => {
+  const markups = `
     <div class="relative">
       <div class="w-full xl:w-[50rem] overflow-x-auto scrollbar-hidden">
         <div class="flex flex-nowrap space-x-4 xl:space-x-8 snap-x">
@@ -35,27 +18,53 @@ const StoryVideoCard = ({ imagesUrls }) => {
     </div>
   `;
 
-  const storyImagesSwitchButtons = (imagesUrls) => {
-    return urls(imagesUrls).map((imageUrl, index) => {
-      return `${ImageSwitcher({
-        selector: `switcher-${index}`,
-      })}`;
-    });
-  };
+  return html`${markups}`;
+};
 
-  return html`<div
+const StoryVideoCard = ({ imagesUrls }) => {
+  const markups = `<div
     class="flex flex-col justify-center items-center gap-4 w-auto h-auto xl:mt-[2.3555rem]"
   >
     <div id="card-body" class="rounded overflow-hidden">
-      ${storyImages(imagesUrls)}
+      ${StoryImages(imagesUrls)}
     </div>
     <div
       id="images-switcher"
       class="flex justify-center xl:justify-start gap-2 w-full xl:mt-2"
     >
-      ${storyImagesSwitchButtons(imagesUrls)}
+      ${createImagesSwitchButtons(imagesUrls)}
     </div>
   </div>`;
+
+  imagesUrls.subscribe((urls) => {
+    document.getElementById("card-body").innerHTML = html`${StoryImages(urls)}`;
+
+    document.getElementById(
+      "images-switcher"
+    ).innerHTML = html`${createImagesSwitchButtons(urls)}`;
+  });
+
+  return html`${markups}`;
 };
+
+function urls(imagesUrls) {
+  return imagesUrls && imagesUrls.length
+    ? imagesUrls
+    : ["http://localhost:3000/images/no-image.jpg"];
+}
+
+function imagesMarkup(imagesUrls) {
+  return urls(imagesUrls).map((imageUrl) => {
+    return `<img src="${imageUrl}" alt="family picture" class="w-full xl:w-11/12 h-52 md:h-[29.586rem] xl:h-[29.586rem] flex-none rounded snap-center" />`;
+  });
+}
+
+function createImagesSwitchButtons(imagesUrls) {
+  return urls(imagesUrls).map((imageUrl, index) => {
+    return `${ImageSwitcher({
+      selector: `switcher-${index}`,
+    })}`;
+  });
+}
 
 export default StoryVideoCard;

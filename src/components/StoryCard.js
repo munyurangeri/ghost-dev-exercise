@@ -142,7 +142,7 @@ const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
                             </h1>
                             <div class="h-48 overflow-hidden">
                                 <div id="story-text-pane" class="transition-all duration-500 ease-in-out">
-                                    <p id="story-text" class="text-lg md:text-3xl xl:text-base leading-[23px] font-normal ">
+                                    <p id="story-text" class="text-base md:text-3xl xl:text-base leading-[23px] font-light lg:font-normal">
                                         ${text.get()}
                                     </p>
                                 </div>

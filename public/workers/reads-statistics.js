@@ -13,11 +13,9 @@ self.onerror = function (event) {
   return true;
 };
 
-async function reads(page = 1, per_page = 20) {
+async function reads() {
   try {
-    const request = new Request(
-      `${BASE_URL}/reads?_page=${page}&_per_page=${per_page}`
-    );
+    const request = new Request(`${BASE_URL}/reads?_embed=user`);
     const res = await fetch(request);
 
     const data = await res.json();

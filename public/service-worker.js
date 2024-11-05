@@ -39,15 +39,44 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
-
   const isApiRequest = API_END_POINTS.some((el) => url.pathname.startsWith(el));
 
   if (request.method === "POST")
     event.respondWith(handleApiPostRequest(request));
   else if (request.method === "GET" && isApiRequest)
     event.respondWith(handleApiGetRequest(request));
+  else if (request.method === "GET" && url.pathname.startsWith("/reads"))
+    event.respondWith(handleGetReadsRequest(request));
   else event.respondWith(handleNonApiRequest(request));
 });
+
+async function handleGetReadsRequest(request) {
+  const currentReads = await getAllReads();
+
+  const per_page = 20;
+  const page =
+    currentReads && currentReads.length
+      ? Math.floor(currentReads.length / per_page) + 1
+      : 1;
+
+  const { protocol, host, pathname, search } = new URL(request.url);
+  const newRequest = new Request(
+    `${protocol}//${host}${pathname}${search}&_page=${page}&_per_page=${per_page}`
+  );
+
+  const res = await fetch(newRequest);
+  const { data } = await res.json();
+
+  // Update indexedDB reads
+  saveReadsData(data)
+    .then((result) => console.log({ result }))
+    .catch((error) => console.log({ error }));
+
+  return new Response(
+    JSON.stringify({ ...currentReads, ...data }),
+    CONTENT_TYPE_JSON
+  );
+}
 
 async function handleNonApiRequest(request) {
   return caches.match(request).then(async (cache) => {

@@ -3,7 +3,7 @@
 // Open IndexedDB database
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open("stories-db", 1);
+    const request = indexedDB.open("stories-db", 3);
 
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject("failed to open database");
@@ -13,11 +13,41 @@ function openDatabase() {
 
       db.createObjectStore("cache", { keyPath: "url" });
       db.createObjectStore("post-requests", { autoIncrement: true });
+      db.createObjectStore("reads", { keyPath: "id" });
     };
   });
 }
 
-// Save data to IndexedDB
+async function saveReadsData(data) {
+  const db = await openDatabase();
+  const transaction = db.transaction("reads", "readwrite");
+  const store = transaction.objectStore("reads");
+
+  return new Promise((resolve, reject) => {
+    transaction.onerror = () => reject("failed to save all items, rolled back");
+    transaction.oncomplete = () => resolve("all items saved successfully");
+
+    data.forEach((item) => {
+      const request = store.put(item);
+      request.onerror = () =>
+        reject(`Failed to save item: ${JSON.stringify(item)}`);
+    });
+  });
+}
+
+async function getAllReads() {
+  const db = await openDatabase();
+  const transaction = db.transaction("reads", "readwrite");
+  const store = transaction.objectStore("reads");
+
+  return new Promise((resolve, reject) => {
+    const request = store.getAll();
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
 async function saveToCache(url, data) {
   const db = await openDatabase();
   const transaction = db.transaction("cache", "readwrite");
@@ -31,7 +61,6 @@ async function saveToCache(url, data) {
   });
 }
 
-// Retrieve data from IndexedDB
 async function getCachedData(url) {
   const db = await openDatabase();
   const transaction = db.transaction("cache", "readonly");

@@ -62,7 +62,7 @@ async function addReadStat(data) {
       story: data.family,
       start_reading_at: new Date(),
       end_reading_at: null,
-      read_by: randomReader.toString(),
+      user: randomReader.toString(),
     }),
   });
 

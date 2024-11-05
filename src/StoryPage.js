@@ -5,37 +5,6 @@ import StoryVideoCard from "./components/StoryVideoCard";
 const BASE_URL = "http://localhost:3000";
 
 const StoryPage = async () => {
-  const getStory = async (lastId = 0) => {
-    let id = 0;
-
-    while (!id || id === lastId) {
-      id = Math.floor(Math.random() * 5) + 1;
-    }
-
-    if (id) {
-      try {
-        const request = new Request(`${BASE_URL}/stories/${id}`);
-        const response = await fetch(request);
-        const data = await response.json();
-
-        const randomReader = Math.floor(Math.random() * 20) + 101;
-
-        await fetch(`${BASE_URL}/reads`, {
-          method: "POST",
-          body: JSON.stringify({
-            story: data.family,
-            read_at: new Date(),
-            read_by: randomReader.toString(),
-          }),
-        });
-
-        return data;
-      } catch (error) {
-        console.log({ getStoryError: error });
-      }
-    }
-  };
-
   const imagesUrls = reactive([]);
 
   const markups = `
@@ -51,5 +20,53 @@ const StoryPage = async () => {
 
   return html`${markups}`;
 };
+
+async function getStory(lastId = 0, readId = 0) {
+  console.log({ readId });
+  let id = 0;
+
+  while (!id || id === lastId) {
+    id = Math.floor(Math.random() * 5) + 1;
+  }
+
+  if (id) {
+    try {
+      // const request = new Request(`${BASE_URL}/stories/${id}`);
+      const data = await fetch(`${BASE_URL}/stories/${id}`).then((res) =>
+        res.json()
+      );
+
+      const read = await addReadStat(data);
+
+      if (readId)
+        await fetch(`${BASE_URL}/reads/${readId}`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            end_reading_at: new Date(),
+          }),
+        });
+
+      return { ...data, readId: read.id };
+    } catch (error) {
+      console.log({ getStoryError: error });
+    }
+  }
+}
+
+async function addReadStat(data) {
+  const randomReader = Math.floor(Math.random() * 20) + 101;
+
+  const response = await fetch(`${BASE_URL}/reads`, {
+    method: "POST",
+    body: JSON.stringify({
+      story: data.family,
+      start_reading_at: new Date(),
+      end_reading_at: null,
+      read_by: randomReader.toString(),
+    }),
+  });
+
+  return await response.json();
+}
 
 export default StoryPage;

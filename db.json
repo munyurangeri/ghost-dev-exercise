@@ -38,5 +38,259 @@
       "images": []
     }
   ],
+  "users": [
+    {
+      "id": "100",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john.doe@example.com",
+      "city": "New York",
+      "country": "USA",
+      "country_geo": {
+        "lat": 40.7128,
+        "long": -74.006
+      }
+    },
+    {
+      "id": "101",
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "email": "jane.smith@example.com",
+      "city": "Los Angeles",
+      "country": "USA",
+      "country_geo": {
+        "lat": 34.0522,
+        "long": -118.2437
+      }
+    },
+    {
+      "id": "102",
+      "first_name": "Emily",
+      "last_name": "Johnson",
+      "email": "emily.johnson@example.com",
+      "city": "New York",
+      "country": "USA",
+      "country_geo": {
+        "lat": 40.7128,
+        "long": -74.006
+      }
+    },
+    {
+      "id": "103",
+      "first_name": "Michael",
+      "last_name": "Williams",
+      "email": "michael.williams@example.com",
+      "city": "Chicago",
+      "country": "USA",
+      "country_geo": {
+        "lat": 41.8781,
+        "long": -87.6298
+      }
+    },
+    {
+      "id": "104",
+      "first_name": "Sarah",
+      "last_name": "Brown",
+      "email": "sarah.brown@example.com",
+      "city": "Chicago",
+      "country": "USA",
+      "country_geo": {
+        "lat": 41.8781,
+        "long": -87.6298
+      }
+    },
+    {
+      "id": "105",
+      "first_name": "David",
+      "last_name": "Miller",
+      "email": "david.miller@example.com",
+      "city": "Houston",
+      "country": "USA",
+      "country_geo": {
+        "lat": 29.7604,
+        "long": -95.3698
+      }
+    },
+    {
+      "id": "106",
+      "first_name": "Laura",
+      "last_name": "Davis",
+      "email": "laura.davis@example.com",
+      "city": "Houston",
+      "country": "USA",
+      "country_geo": {
+        "lat": 29.7604,
+        "long": -95.3698
+      }
+    },
+    {
+      "id": "107",
+      "first_name": "Robert",
+      "last_name": "Martinez",
+      "email": "robert.martinez@example.com",
+      "city": "Phoenix",
+      "country": "USA",
+      "country_geo": {
+        "lat": 33.4484,
+        "long": -112.074
+      }
+    },
+    {
+      "id": "108",
+      "first_name": "Linda",
+      "last_name": "Lopez",
+      "email": "linda.lopez@example.com",
+      "city": "Philadelphia",
+      "country": "USA",
+      "country_geo": {
+        "lat": 39.9526,
+        "long": -75.1652
+      }
+    },
+    {
+      "id": "109",
+      "first_name": "William",
+      "last_name": "Garcia",
+      "email": "william.garcia@example.com",
+      "city": "San Antonio",
+      "country": "USA",
+      "country_geo": {
+        "lat": 29.4241,
+        "long": -98.4936
+      }
+    },
+    {
+      "id": "110",
+      "first_name": "Karen",
+      "last_name": "Rodriguez",
+      "email": "karen.rodriguez@example.com",
+      "city": "San Diego",
+      "country": "USA",
+      "country_geo": {
+        "lat": 32.7157,
+        "long": -117.1611
+      }
+    },
+    {
+      "id": "111",
+      "first_name": "Steven",
+      "last_name": "Martinez",
+      "email": "steven.martinez@example.com",
+      "city": "Dallas",
+      "country": "USA",
+      "country_geo": {
+        "lat": 32.7767,
+        "long": -96.797
+      }
+    },
+    {
+      "id": "112",
+      "first_name": "Barbara",
+      "last_name": "Hernandez",
+      "email": "barbara.hernandez@example.com",
+      "city": "San Jose",
+      "country": "USA",
+      "country_geo": {
+        "lat": 37.3382,
+        "long": -121.8863
+      }
+    },
+    {
+      "id": "113",
+      "first_name": "James",
+      "last_name": "Wilson",
+      "email": "james.wilson@example.com",
+      "city": "Austin",
+      "country": "USA",
+      "country_geo": {
+        "lat": 30.2672,
+        "long": -97.7431
+      }
+    },
+    {
+      "id": "114",
+      "first_name": "Jessica",
+      "last_name": "Moore",
+      "email": "jessica.moore@example.com",
+      "city": "Jacksonville",
+      "country": "USA",
+      "country_geo": {
+        "lat": 30.3322,
+        "long": -81.6557
+      }
+    },
+    {
+      "id": "115",
+      "first_name": "Brian",
+      "last_name": "Taylor",
+      "email": "brian.taylor@example.com",
+      "city": "San Francisco",
+      "country": "USA",
+      "country_geo": {
+        "lat": 37.7749,
+        "long": -122.4194
+      }
+    },
+    {
+      "id": "116",
+      "first_name": "Laura",
+      "last_name": "Anderson",
+      "email": "laura.anderson@example.com",
+      "city": "San Francisco",
+      "country": "USA",
+      "country_geo": {
+        "lat": 37.7749,
+        "long": -122.4194
+      }
+    },
+    {
+      "id": "117",
+      "first_name": "Ryan",
+      "last_name": "Thomas",
+      "email": "ryan.thomas@example.com",
+      "city": "Columbus",
+      "country": "USA",
+      "country_geo": {
+        "lat": 39.9612,
+        "long": -82.9988
+      }
+    },
+    {
+      "id": "118",
+      "first_name": "Megan",
+      "last_name": "Martinez",
+      "email": "megan.martinez@example.com",
+      "city": "Fort Worth",
+      "country": "USA",
+      "country_geo": {
+        "lat": 32.7555,
+        "long": -97.3308
+      }
+    },
+    {
+      "id": "119",
+      "first_name": "Nathan",
+      "last_name": "White",
+      "email": "nathan.white@example.com",
+      "city": "Charlotte",
+      "country": "USA",
+      "country_geo": {
+        "lat": 35.2271,
+        "long": -80.8431
+      }
+    },
+    {
+      "id": "120",
+      "first_name": "Samantha",
+      "last_name": "Harris",
+      "email": "samantha.harris@example.com",
+      "city": "Seattle",
+      "country": "USA",
+      "country_geo": {
+        "lat": 47.6062,
+        "long": -122.3321
+      }
+    }
+  ],
   "reads": []
 }

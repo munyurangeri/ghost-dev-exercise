@@ -29,7 +29,7 @@ function reactivePrimitive(initialValue) {
 function reactiveArray(initialArray) {
   const reactive = reactivePrimitive(initialArray);
 
-  const proxyHandler = {
+  const handler = {
     get(target, prop) {
       if (prop === "subscribe") {
         return reactive.subscribe;
@@ -48,7 +48,34 @@ function reactiveArray(initialArray) {
     },
   };
 
-  return new Proxy(initialArray, proxyHandler);
+  return new Proxy(initialArray, handler);
+}
+
+function reactiveObject(initialObject) {
+  const primitives = {};
+
+  for (const key in initialObject) {
+    if (initialObject.hasOwnProperty(key))
+      primitives[key] = reactivePrimitive(initialObject[key]);
+  }
+
+  const handler = {
+    get(target, prop) {
+      if (prop in primitives) return primitives[prop];
+
+      return target[prop];
+    },
+    set(target, prop, value) {
+      if (prop in primitives) primitives[prop].set(value);
+      else target[prop] = value;
+
+      return true;
+    },
+
+    // TODO: Implement other properties
+  };
+
+  return new Proxy(initialObject, handler);
 }
 
 export function reactive(initialValue) {
@@ -57,6 +84,9 @@ export function reactive(initialValue) {
 
   if (Array.isArray(initialValue) || typeof initialValue !== "object")
     return reactiveArray(initialValue);
+
+  if (!Array.isArray(initialValue) || typeof initialValue === "object")
+    return reactiveObject(initialValue);
 }
 
 const eventListenersRegistry = [];

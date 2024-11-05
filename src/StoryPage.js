@@ -18,11 +18,14 @@ const StoryPage = async () => {
         const response = await fetch(request);
         const data = await response.json();
 
+        const randomReader = Math.floor(Math.random() * 20) + 101;
+
         await fetch(`${BASE_URL}/reads`, {
           method: "POST",
           body: JSON.stringify({
             story: data.family,
             read_at: new Date(),
+            read_by: randomReader.toString(),
           }),
         });
 

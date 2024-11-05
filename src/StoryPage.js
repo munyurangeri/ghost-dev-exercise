@@ -1,14 +1,26 @@
 import { html, reactive } from "./lib";
 import StoryCard from "./components/StoryCard";
 import StoryVideoCard from "./components/StoryVideoCard";
+import Statistics from "./components/Statistics";
 
 const BASE_URL = "http://localhost:3000";
 
 const StoryPage = async () => {
   const imagesUrls = reactive([]);
+  const statisticsData = reactive({});
+
+  const worker = new Worker("../workers/reads-statistics.js");
+  worker.postMessage({ action: "compute" });
+
+  worker.onmessage = function (event) {
+    const { data } = event;
+    
+    if (data) statisticsData.set(data);
+  };
 
   const markups = `
-        <section class="w-full h-auto xl:h-screen flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4 md:p-10">          
+         ${Statistics({ data: statisticsData })}
+        <section class="w-full h-auto xl:h-screen flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4 md:p-10">
             ${StoryCard({
               storyData: await getStory(),
               getNextRandomStory: getStory,
@@ -22,7 +34,6 @@ const StoryPage = async () => {
 };
 
 async function getStory(lastId = 0, readId = 0) {
-  console.log({ readId });
   let id = 0;
 
   while (!id || id === lastId) {

@@ -68,9 +68,9 @@ async function handleGetReadsRequest(request) {
   const { data } = await res.json();
 
   // Update indexedDB reads
-  saveReadsData(data)
-    .then((result) => console.log({ result }))
-    .catch((error) => console.log({ error }));
+  saveReadsData(data);
+  // .then((result) => console.log({ result }))
+  // .catch((error) => console.log({ error }));
 
   return new Response(
     JSON.stringify({ ...currentReads, ...data }),

@@ -42,6 +42,7 @@ async function getStory(lastId = 0, readId = 0) {
   }
 
   if (id) {
+    // TODO: Make modules for fetching and try/catch to make coding more enjoyable and easy to change! !!!Web simplified!!!
     try {
       // const request = new Request(`${BASE_URL}/stories/${id}`);
       const data = await fetch(`${BASE_URL}/stories/${id}`).then((res) =>

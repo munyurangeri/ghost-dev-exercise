@@ -54,17 +54,21 @@ function urls(imagesUrls) {
 }
 
 function imagesMarkup(imagesUrls) {
-  return urls(imagesUrls).map((imageUrl) => {
+  const markups = urls(imagesUrls).map((imageUrl) => {
     return `<img src="${imageUrl}" alt="family picture" class="w-full xl:w-11/12 h-52 md:h-[29.586rem] xl:h-[29.586rem] flex-none rounded snap-center" />`;
   });
+
+  return html`${markups}`;
 }
 
 function createImagesSwitchButtons(imagesUrls) {
-  return urls(imagesUrls).map((imageUrl, index) => {
+  const markups = urls(imagesUrls).map((imageUrl, index) => {
     return `${ImageSwitcher({
       selector: `switcher-${index}`,
     })}`;
   });
+
+  return html`${markups}`;
 }
 
 export default StoryVideoCard;

@@ -33,10 +33,4 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-const worker = new Worker("./workers/reads-statistics.js");
-worker.postMessage({ action: "get:data" });
-
-worker.onmessage = function (event) {
-  const { data } = event;
-  console.log({ data });
-};
+// if (window) window.addEventListener("beforeunload", clearEventListners);

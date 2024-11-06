@@ -6,6 +6,7 @@ self.onmessage = async function (event) {
   const statistics = {
     readsPerStory: computeReadsPerStory(data),
     mostReadStory: computeMostReadStory(data),
+    storyReadAvarage: computeStoryReadAverage(data),
   };
 
   self.postMessage(statistics);
@@ -50,4 +51,15 @@ function computeMostReadStory(data) {
     },
     { story: null, count: 0 }
   );
+}
+
+function computeStoryReadAverage(data) {
+  const readsPerStory = Object.entries(computeReadsPerStory(data));
+
+  const total = readsPerStory.reduce(
+    (total, [story, count]) => total + count,
+    0
+  );
+
+  return total > 0 ? Math.round(total / readsPerStory.length + 1) : 0;
 }

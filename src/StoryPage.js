@@ -9,22 +9,23 @@ const StoryPage = async () => {
   const imagesUrls = reactive([]);
   const statisticsData = reactive({});
 
-  const worker = new Worker("../workers/reads-statistics.js");
-  worker.postMessage({ action: "compute" });
+  const statisticsWorker = new Worker("../workers/reads-statistics.js");
+  statisticsWorker.postMessage({ action: "compute" });
 
-  worker.onmessage = function (event) {
+  statisticsWorker.onmessage = function (event) {
     const { data } = event;
-    
+
     if (data) statisticsData.set(data);
   };
 
   const markups = `
          ${Statistics({ data: statisticsData })}
-        <section class="w-full h-auto xl:h-screen flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4 md:p-10">
+        <section class="w-full max-h-screen lg:min-h-auto lg:max-h-none  flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4">
             ${StoryCard({
               storyData: await getStory(),
               getNextRandomStory: getStory,
-              imagesUrls: imagesUrls,
+              statisticsWorker,
+              imagesUrls,
             })}
             ${StoryVideoCard({ imagesUrls })}
         </section>

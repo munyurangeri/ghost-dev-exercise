@@ -2,7 +2,12 @@ import { html, paginate, reactive, delegateEvent } from "../lib";
 import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
 
-const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
+const StoryCard = ({
+  storyData,
+  getNextRandomStory,
+  statisticsWorker,
+  imagesUrls,
+}) => {
   const { id, family, story, images, readId } = storyData;
 
   const wait = setTimeout(() => {
@@ -112,6 +117,9 @@ const StoryCard = ({ storyData, getNextRandomStory, imagesUrls }) => {
       text.set(pageText);
       next.set(nextPage);
       previous.set(previousPage);
+
+      // Update statistics
+      statisticsWorker.postMessage({ action: "compute" });
 
       pane.classList.remove("-translate-y-full");
     }, 700);

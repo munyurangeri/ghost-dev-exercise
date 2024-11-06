@@ -50,7 +50,7 @@ const StoryVideoCard = ({ imagesUrls }) => {
 function urls(imagesUrls) {
   return imagesUrls && imagesUrls.length
     ? imagesUrls
-    : ["http://localhost:3000/images/no-image.jpg"];
+    : ["https://placehold.co/600x400?text=Upload+Picture&font=roboto"];
 }
 
 function imagesMarkup(imagesUrls) {

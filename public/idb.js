@@ -3,7 +3,7 @@
 // Open IndexedDB database
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open("stories-db", 3);
+    const request = indexedDB.open("stories-db", 1);
 
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject("failed to open database");

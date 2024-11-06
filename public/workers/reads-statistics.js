@@ -1,12 +1,15 @@
 const BASE_URL = "http://localhost:3000";
 
 self.onmessage = async function (event) {
+  console.log({ event });
   const data = await reads();
 
   const statistics = {
     readsPerStory: computeReadsPerStory(data),
     mostReadStory: computeMostReadStory(data),
     storyReadAvarage: computeStoryReadAverage(data),
+    totalReads: computeTotalReads(data),
+    enthusiast: computeEnthusiast(data),
   };
 
   self.postMessage(statistics);
@@ -62,4 +65,43 @@ function computeStoryReadAverage(data) {
   );
 
   return total > 0 ? Math.round(total / readsPerStory.length + 1) : 0;
+}
+
+function computeTotalReads(rowData) {
+  return Object.entries(rowData).length;
+}
+
+function computeEnthusiast(data) {
+  const readsPerUser = Object.entries(data).reduce((reads, [_index, read]) => {
+    const userIndex = Array.isArray(reads)
+      ? reads.findIndex((el) => read.userId == el.userId)
+      : -1;
+
+    if (userIndex === -1)
+      return [
+        ...reads,
+        {
+          userId: read.userId,
+          user: read.user,
+          count: 1,
+        },
+      ];
+
+    reads[userIndex] = {
+      userId: read.userId,
+      user: read.user,
+      count: reads[userIndex].count + 1,
+    };
+
+    return reads;
+  }, []);
+
+  return readsPerUser.reduce(
+    (enthusiast, { user, count }) => {
+      return count > enthusiast.count
+        ? { names: `${user.first_name} ${user.last_name}`, count }
+        : enthusiast;
+    },
+    { names: null, count: 0 }
+  );
 }

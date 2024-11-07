@@ -2,7 +2,7 @@ const BASE_URL = "http://localhost:3000";
 
 self.onmessage = async function (event) {
   console.log({ event });
-  const data = await reads();
+  const data = deduplicate(await reads());
 
   const statistics = {
     readsPerStory: computeReadsPerStory(data),
@@ -26,13 +26,28 @@ async function reads() {
   try {
     const request = new Request(`${BASE_URL}/reads?_embed=user`);
     const res = await fetch(request);
-
     const data = await res.json();
 
     return data;
   } catch (error) {
     throw new Error("Something went wrong while fetching reads");
   }
+}
+
+function deduplicate(rowData) {
+  const data = Object.entries(rowData).map(([index, read]) => read);
+
+  const dedups = data.reduce((acc, read) => {
+    const key = read.id;
+    if (!(key in acc)) acc[key] = read;
+
+    return acc;
+  }, {});
+
+  return Object.entries(dedups).reduce(
+    (acc, [key, data]) => [...acc, data],
+    []
+  );
 }
 
 function computeReadsPerStory(rowData) {

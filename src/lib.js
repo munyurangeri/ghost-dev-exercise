@@ -134,13 +134,32 @@ export function paginate(text, page = 1, wordsPerPage = 35) {
 }
 
 export function formatNumber(num) {
-  if (Math.abs(num) >= 1e9) {
-    return (num / 1e9).toFixed(1) + "B";
-  } else if (Math.abs(num) >= 1e6) {
-    return (num / 1e6).toFixed(1) + "M";
-  } else if (Math.abs(num) >= 1e3) {
-    return (num / 1e3).toFixed(1) + "K";
-  } else {
-    return num.toString();
-  }
+  if (Math.abs(num) >= 1e9) return (num / 1e9).toFixed(1) + "B";
+  else if (Math.abs(num) >= 1e6) return (num / 1e6).toFixed(1) + "M";
+  else if (Math.abs(num) >= 1e3) return (num / 1e3).toFixed(1) + "K";
+  else return num.toString();
+}
+
+export function tryPromise(promise, errorToCatch) {
+  return promise
+    .then((data) => [undefined, data])
+    .catch((error) => {
+      if (!errorToCatch || errorToCatch.length === 0) return [error];
+
+      if (errorToCatch.some((e) => error instanceof e)) return [error];
+
+      throw error;
+    });
+}
+
+export function fetch(url, method = "GET", body = {}) {
+  // TODO: Handle all methods, setting headers as neccessary
+  // TODO: Use tryPromise!
+  // TODO: How about caching? how `swr` lib works? Can I make something like it?
+
+  return null;
+}
+
+export function onMount() {
+  // TODO: abstruct away the use of `setInterval` when subscribing to data change that has to update UI (Html element)
 }

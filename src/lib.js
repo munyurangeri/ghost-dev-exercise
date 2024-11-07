@@ -135,6 +135,8 @@ export function formatNumber(num) {
   else return num.toString();
 }
 
+// TODO: Refactor by making use of the bellow functions
+
 export function promise(promise, errorsToCatch) {
   return promise
     .then((data) => [undefined, data])

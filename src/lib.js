@@ -154,7 +154,6 @@ export function promise(promise, errorsToCatch) {
 
 export function fetch(url, method = "GET", body = {}) {
   // TODO: Handle all methods, setting headers as neccessary
-  // TODO: Use tryPromise!
   // TODO: How about caching? how `swr` lib works? Can I make something like it?
 
   return [undefined, data];

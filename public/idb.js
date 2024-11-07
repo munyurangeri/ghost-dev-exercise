@@ -3,17 +3,19 @@
 // Open IndexedDB database
 function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open("stories-db", 1);
+    const request = indexedDB.open("stories-db", 2);
 
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject("failed to open database");
 
     request.onupgradeneeded = (event) => {
       const db = event.target.result;
-
-      db.createObjectStore("cache", { keyPath: "url" });
-      db.createObjectStore("post-requests", { autoIncrement: true });
-      db.createObjectStore("reads", { keyPath: "id" });
+      if (!db.objectStoreNames.contains("cache"))
+        db.createObjectStore("cache", { keyPath: "url" });
+      if (!db.objectStoreNames.contains("post-requests"))
+        db.createObjectStore("post-requests", { autoIncrement: true });
+      if (!db.objectStoreNames.contains("reads"))
+        db.createObjectStore("reads", { keyPath: "id" });
     };
   });
 }

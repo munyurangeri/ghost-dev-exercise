@@ -44,10 +44,7 @@ function deduplicate(rowData) {
     return acc;
   }, {});
 
-  return Object.entries(dedups).reduce(
-    (acc, [key, data]) => [...acc, data],
-    []
-  );
+  return Object.values(dedups);
 }
 
 function computeReadsPerStory(rowData) {

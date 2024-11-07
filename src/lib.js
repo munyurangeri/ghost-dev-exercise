@@ -162,3 +162,8 @@ export function fetch(url, method = "GET", body = {}) {
 export function onMount() {
   // TODO: abstruct away the use of `setInterval` when subscribing to data change that has to update UI (Html element)
 }
+
+// TODO: Implement FEATURE FLAGS
+
+// TOOD: Learn how server-actions (in frameworks) are implemented
+// TODO: Make a router that works both CSR and SSR and refactor the code so it can work on server(ssr)

@@ -72,8 +72,10 @@ async function handleGetReadsRequest(request) {
   // .then((result) => console.log({ result }))
   // .catch((error) => console.log({ error }));
 
+  // console.log({ currentReads, data });
+
   return new Response(
-    JSON.stringify({ ...currentReads, ...data }),
+    JSON.stringify([...currentReads, ...data]),
     CONTENT_TYPE_JSON
   );
 }

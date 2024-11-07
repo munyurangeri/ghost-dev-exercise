@@ -51,7 +51,7 @@ function reactiveArray(initialArray) {
   return new Proxy(initialArray, handler);
 }
 
-function reactiveObject(initialObject) {
+export function granularReactive(initialObject) {
   const primitives = {};
 
   for (const key in initialObject) {
@@ -65,6 +65,7 @@ function reactiveObject(initialObject) {
 
       return target[prop];
     },
+
     set(target, prop, value) {
       if (prop in primitives) primitives[prop].set(value);
       else target[prop] = value;
@@ -79,14 +80,8 @@ function reactiveObject(initialObject) {
 }
 
 export function reactive(initialValue) {
-  if (!Array.isArray(initialValue) || typeof initialValue !== "object")
-    return reactivePrimitive(initialValue);
-
-  if (Array.isArray(initialValue) || typeof initialValue !== "object")
-    return reactiveArray(initialValue);
-
-  if (!Array.isArray(initialValue) || typeof initialValue === "object")
-    return reactiveObject(initialValue);
+  if (Array.isArray(initialValue)) return reactiveArray(initialValue);
+  return reactivePrimitive(initialValue);
 }
 
 const eventListenersRegistry = [];

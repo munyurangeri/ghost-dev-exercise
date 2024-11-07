@@ -140,13 +140,13 @@ export function formatNumber(num) {
   else return num.toString();
 }
 
-export function tryPromise(promise, errorToCatch) {
+export function promise(promise, errorsToCatch) {
   return promise
     .then((data) => [undefined, data])
     .catch((error) => {
-      if (!errorToCatch || errorToCatch.length === 0) return [error];
+      if (!errorsToCatch || errorsToCatch.length === 0) return [error];
 
-      if (errorToCatch.some((e) => error instanceof e)) return [error];
+      if (errorsToCatch.some((e) => error instanceof e)) return [error];
 
       throw error;
     });
@@ -157,7 +157,7 @@ export function fetch(url, method = "GET", body = {}) {
   // TODO: Use tryPromise!
   // TODO: How about caching? how `swr` lib works? Can I make something like it?
 
-  return null;
+  return [undefined, data];
 }
 
 export function onMount() {

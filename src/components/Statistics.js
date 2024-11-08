@@ -92,7 +92,7 @@ const Enthusiast = ({ enthusiast }) => {
 
 const Statistics = ({ data }) => {
   const markups = `
-    <section id="statistics-panel" class="w-full my-4 flex justify-center items-center flex-wrap gap-2 lg:gap-6 text-white bg-[#F15C22] lg:py-4">
+    <section id="statistics-panel" class="w-full my-4 flex justify-center items-center flex-wrap gap-2 lg:gap-6 text-white hover:bg-[#F15C22] lg:py-4">
       ${createSubComponents(
         [TotalReads, StoryReadAverage, MostReadStory, Enthusiast],
         data.get()

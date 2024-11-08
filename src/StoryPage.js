@@ -24,7 +24,7 @@ const StoryPage = async () => {
            featureFlag: "statistics",
            child: Statistics({ data: statisticsData }),
          })}
-        <section class="w-full max-h-screen lg:min-h-auto lg:max-h-none  flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4">
+        <section class="w-full max-h-screen lg:min-h-auto lg:max-h-none flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4">
             ${StoryCard({
               storyData: await getStory(),
               getNextRandomStory: getStory,

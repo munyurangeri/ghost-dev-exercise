@@ -1,7 +1,7 @@
 importScripts("idb.js");
 
-const FILES_CACHE_NAME = "files-cache-v1";
-const IMAGES_CACHE_NAME = "images-cache-v1";
+const FILES_CACHE_NAME = "files-cache-v3";
+const IMAGES_CACHE_NAME = "images-cache-v3";
 const API_END_POINTS = ["/stories/"];
 
 const FILES_TO_CACHE = ["/", "/manifest.json", "/idb.js", "/robots.txt"];

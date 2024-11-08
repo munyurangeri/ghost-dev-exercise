@@ -1,5 +1,97 @@
 {
-  "reads": [],
+  "reads": [
+    {
+      "id": "616f",
+      "story": "O’Reilly",
+      "start_reading_at": "2024-11-08T16:31:39.428Z",
+      "end_reading_at": "2024-11-08T16:31:45.013Z",
+      "userId": "103"
+    },
+    {
+      "id": "a0cb",
+      "story": "O’Reilly",
+      "start_reading_at": "2024-11-08T16:31:44.980Z",
+      "end_reading_at": "2024-11-08T16:32:01.110Z",
+      "userId": "107"
+    },
+    {
+      "id": "d9bf",
+      "story": "Okafor",
+      "start_reading_at": "2024-11-08T16:32:01.071Z",
+      "end_reading_at": "2024-11-08T16:32:03.110Z",
+      "userId": "109"
+    },
+    {
+      "id": "99ac",
+      "story": "Nguyen",
+      "start_reading_at": "2024-11-08T16:32:03.037Z",
+      "end_reading_at": "2024-11-08T16:35:22.108Z",
+      "userId": "103"
+    },
+    {
+      "id": "528c",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T16:35:22.050Z",
+      "end_reading_at": "2024-11-08T16:35:25.344Z",
+      "userId": "101"
+    },
+    {
+      "id": "44d2",
+      "story": "O’Reilly",
+      "start_reading_at": "2024-11-08T16:35:25.303Z",
+      "end_reading_at": "2024-11-08T16:35:28.369Z",
+      "userId": "101"
+    },
+    {
+      "id": "f814",
+      "story": "Okafor",
+      "start_reading_at": "2024-11-08T16:35:28.286Z",
+      "end_reading_at": null,
+      "userId": "116"
+    },
+    {
+      "id": "a476",
+      "story": "Kumar ",
+      "start_reading_at": "2024-11-08T17:02:18.842Z",
+      "end_reading_at": null,
+      "userId": "115"
+    },
+    {
+      "id": "1b06",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T17:31:25.837Z",
+      "end_reading_at": null,
+      "userId": "104"
+    },
+    {
+      "id": "f56d",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T23:43:02.742Z",
+      "end_reading_at": null,
+      "userId": "119"
+    },
+    {
+      "id": "3d9c",
+      "story": "Okafor",
+      "start_reading_at": "2024-11-08T23:43:21.024Z",
+      "end_reading_at": null,
+      "userId": "109"
+    },
+    {
+      "id": "301f",
+      "story": "Kumar ",
+      "start_reading_at": "2024-11-08T23:43:22.447Z",
+      "end_reading_at": null,
+      "userId": "117"
+    },
+    {
+      "id": "7368",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T23:43:29.460Z",
+      "end_reading_at": null,
+      "userId": "102"
+    }
+  ],
   "stories": [
     {
       "id": "1",
@@ -30,7 +122,9 @@
       "id": "4",
       "family": "Okafor",
       "story": "The Okafors, Miriam and Chidi, cherished family gatherings in their big, bustling home. When Chidi lost his job, they faced the real fear of losing their home too. To keep their family together, they rented out rooms to friends and even strangers. Over time, their house became a community space, hosting dinners and celebrations that helped pay the bills. What began as a challenge transformed into a chance to create a wider family, bound by shared meals and laughter.",
-      "images": ["http://localhost:3000/images/okafor/pic-2.jpg"]
+      "images": [
+        "http://localhost:3000/images/okafor/pic-2.jpg"
+      ]
     },
     {
       "id": "2",

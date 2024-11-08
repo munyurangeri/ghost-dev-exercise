@@ -9,6 +9,6 @@ RUN npm install -g json-server concurrently serve
 
 COPY . .
 
-EXPOSE 5001 3001
+EXPOSE 5000 3000
 
 CMD concurrently "json-server db.json --static ./data --port 3000" "vite build" "serve -s dist -l 5000"

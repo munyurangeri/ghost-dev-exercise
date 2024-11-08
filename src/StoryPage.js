@@ -2,6 +2,7 @@ import { html, reactive } from "./lib";
 import StoryCard from "./components/StoryCard";
 import StoryVideoCard from "./components/StoryVideoCard";
 import Statistics from "./components/Statistics";
+import FeatureEnabled from "./components/FeatureEnabled";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -19,7 +20,10 @@ const StoryPage = async () => {
   };
 
   const markups = `
-         ${Statistics({ data: statisticsData })}
+         ${FeatureEnabled({
+           featureFlag: "statistics",
+           child: Statistics({ data: statisticsData }),
+         })}
         <section class="w-full max-h-screen lg:min-h-auto lg:max-h-none  flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-20 p-4">
             ${StoryCard({
               storyData: await getStory(),

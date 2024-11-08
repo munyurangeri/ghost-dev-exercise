@@ -22,6 +22,8 @@ self.onerror = function (event) {
   return true;
 };
 
+// TODO: Bring this function in the main thread.
+
 async function reads() {
   try {
     const request = new Request(`${BASE_URL}/reads?_embed=user`);

@@ -1,7 +1,7 @@
 import "./style.css";
 import { html } from "./lib";
 
-import Layout from "./components/Layout";
+import Layout from "./Layout";
 import StoryPage from "./StoryPage";
 
 async function renderPage() {

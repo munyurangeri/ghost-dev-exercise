@@ -139,6 +139,7 @@ export function formatNumber(num) {
 
 export function promise(promise, errorsToCatch) {
   return promise
+    .then((response) => response.json())
     .then((data) => [undefined, data])
     .catch((error) => {
       if (!errorsToCatch || errorsToCatch.length === 0) return [error];

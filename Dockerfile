@@ -1,14 +1,19 @@
-FROM node:18
+FROM node:22 AS builder
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
 
-RUN npm install -g json-server concurrently serve
+RUN npm install
 
 COPY . .
 
-EXPOSE 5000 3000
+RUN npm run build
 
-CMD concurrently "json-server db.json --static ./data --port 3000" "vite build" "serve -s dist -l 5000"
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD [ "nginx", "-g", "daemon off;" ]

@@ -1,3 +1,4 @@
+import { getReadStats } from "../api";
 import { html, paginate, reactive, delegateEvent } from "../lib";
 import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
@@ -119,7 +120,8 @@ const StoryCard = ({
       previous.set(previousPage);
 
       // Update statistics
-      statisticsWorker.postMessage({ action: "compute" });
+      const [_, data] = await getReadStats();
+      statisticsWorker.postMessage({ action: "compute:all", reads: data });
 
       pane.classList.remove("-translate-y-full");
     }, 700);

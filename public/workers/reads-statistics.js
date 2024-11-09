@@ -1,18 +1,22 @@
-const BASE_URL = "http://localhost:3000";
-
 self.onmessage = async function (event) {
-  console.log({ event });
-  const data = deduplicate(await reads());
+  const { action, reads } = event.data;
 
-  const statistics = {
-    readsPerStory: computeReadsPerStory(data),
-    mostReadStory: computeMostReadStory(data),
-    storyReadAvarage: computeStoryReadAverage(data),
-    totalReads: computeTotalReads(data),
-    enthusiast: computeEnthusiast(data),
-  };
+  const data = Array.isArray(reads) ? deduplicate(reads) : [];
 
-  self.postMessage(statistics);
+  switch (action) {
+    case "compute:all":
+      const statistics = {
+        readsPerStory: computeReadsPerStory(data),
+        mostReadStory: computeMostReadStory(data),
+        storyReadAvarage: computeStoryReadAverage(data),
+        totalReads: computeTotalReads(data),
+        enthusiast: computeEnthusiast(data),
+      };
+      self.postMessage(statistics);
+      break;
+    default:
+      console.log({ event });
+  }
 };
 
 self.onerror = function (event) {
@@ -23,18 +27,6 @@ self.onerror = function (event) {
 };
 
 // TODO: Bring this function in the main thread.
-
-async function reads() {
-  try {
-    const request = new Request(`${BASE_URL}/reads?_embed=user`);
-    const res = await fetch(request);
-    const data = await res.json();
-
-    return data;
-  } catch (error) {
-    throw new Error("Something went wrong while fetching reads");
-  }
-}
 
 function deduplicate(rowData) {
   const data = Object.entries(rowData).map(([index, read]) => read);

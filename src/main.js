@@ -3,6 +3,7 @@ import { html, reactive } from "./lib";
 import Layout from "./Layout";
 import StoryPage from "./StoryPage";
 import { getReadStats } from "./api";
+import { analyticsActions } from "./workersActions";
 
 const analyticsWorker = new Worker("../workers/reads-statistics.js");
 const imagesUrls = reactive([]);
@@ -16,12 +17,19 @@ async function renderPage() {
 
 renderPage();
 
-navigator.serviceWorker.addEventListener("message", (event) => {
+navigator.serviceWorker.addEventListener("message", async (event) => {
   if (event.data?.type === "update")
     console.log(`Fresh data available for: ${event.data.url}!`);
 
   if (event.data?.type === "analytics") {
     console.log(`Fresh ANALYTICS available!`);
+
+    const [_, data] = await getReadStats();
+
+    analyticsWorker.postMessage({
+      action: analyticsActions.COMPUTE_ALL,
+      reads: data,
+    });
   }
 });
 
@@ -29,7 +37,6 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.ready.then((registration) => {
     // Listen for online status
     window.addEventListener("online", async () => {
-      renderPage();
       const [_, data] = await getReadStats();
 
       analyticsWorker.postMessage({
@@ -41,7 +48,6 @@ if ("serviceWorker" in navigator) {
 
     // Listen for visibility changes
     document.addEventListener("visibilitychange", async () => {
-      renderPage();
       if (document.visibilityState === "visible" && navigator.onLine) {
         const [_, data] = await getReadStats();
 

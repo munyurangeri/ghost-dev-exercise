@@ -1,12 +1,14 @@
 import "./style.css";
 import { html } from "./lib";
-
 import Layout from "./Layout";
 import StoryPage from "./StoryPage";
+import { getReadStats } from "./api";
+
+const analyticsWorker = new Worker("../workers/reads-statistics.js");
 
 async function renderPage() {
   document.querySelector("#app").innerHTML = html`${Layout({
-    page: await StoryPage(),
+    page: await StoryPage({ analyticsWorker }),
   })}`;
 }
 
@@ -29,9 +31,14 @@ if ("serviceWorker" in navigator) {
     });
 
     // Listen for visibility changes
-    document.addEventListener("visibilitychange", () => {
-      renderPage();
+    document.addEventListener("visibilitychange", async () => {
       if (document.visibilityState === "visible" && navigator.onLine) {
+        const [_, data] = await getReadStats();
+
+        analyticsWorker.postMessage({
+          action: analyticsActions.COMPUTE_ALL,
+          reads: data,
+        });
         registration.active.postMessage({ action: "syncOfflineData" });
       }
     });

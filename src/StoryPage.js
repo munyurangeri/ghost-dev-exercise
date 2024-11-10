@@ -6,15 +6,16 @@ import Statistics from "./components/Statistics";
 import FeatureEnabled from "./components/FeatureEnabled";
 import { analyticsActions } from "./workersActions";
 
-const StoryPage = async () => {
+const StoryPage = async ({ analyticsWorker }) => {
   const imagesUrls = reactive([]);
   const statisticsData = reactive({});
 
   const [_, data] = await getReadStats();
 
-  const analyticsWorker = new Worker("../workers/reads-statistics.js");
-
-  analyticsWorker.postMessage({ action: analyticsActions.COMPUTE_ALL, reads: data });
+  analyticsWorker.postMessage({
+    action: analyticsActions.COMPUTE_ALL,
+    reads: data,
+  });
 
   analyticsWorker.onmessage = function (event) {
     const { data } = event;

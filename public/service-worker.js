@@ -64,20 +64,39 @@ async function handleGetReadsRequest(request) {
     `${protocol}//${host}${pathname}${search}&_page=${page}&_per_page=${per_page}`
   );
 
-  const res = await fetch(newRequest);
-  const { data } = await res.json();
-
-  // Update indexedDB reads
-  saveReadsData(data);
-  // .then((result) => console.log({ result }))
-  // .catch((error) => console.log({ error }));
-
-  // console.log({ currentReads, data });
-
-  return new Response(
-    JSON.stringify([...currentReads, ...data]),
-    CONTENT_TYPE_JSON
+  console.log(
+    `${protocol}//${host}${pathname}${search}&_page=${page}&_per_page=${per_page}`
   );
+  console.log({ currentReads });
+
+  if (!currentReads || !currentReads.length) {
+    const data = await fetchAndUpdateReadsCache(newRequest);
+
+    return new Response(JSON.stringify(data), CONTENT_TYPE_JSON);
+  }
+
+  // Update reads cache
+  fetchAndUpdateReadsCache(newRequest);
+
+  return new Response(JSON.stringify(currentReads), CONTENT_TYPE_JSON);
+}
+
+async function fetchAndUpdateReadsCache(request) {
+  try {
+    const res = await fetch(request);
+    const { data, next, first, last, items } = await res.json();
+
+    // Update indexedDB reads
+    return saveReadsData(data)
+      .then((result) => {
+        if (next) notifyForegroundClients("analytics");
+      })
+      .catch((error) => console.log({ error }));
+
+    // console.log({ currentReads, data });
+  } catch (error) {
+    console.log({ error });
+  }
 }
 
 async function handleNonApiRequest(request) {
@@ -89,7 +108,10 @@ async function handleNonApiRequest(request) {
 
       const url = new URL(request.url);
 
-      if (url.pathname.startsWith("/images/")) {
+      if (
+        url.pathname.startsWith("/images/") ||
+        url.host.includes("placehold")
+      ) {
         const imageCache = await caches.open(IMAGES_CACHE_NAME);
         await imageCache.put(url.href, response.clone());
       }
@@ -130,11 +152,7 @@ async function fetchAndUpdateCache(request) {
     await saveToCache(request.url, data);
 
     // Notify the client of fresh data (if in foreground)
-    self.clients.matchAll().then((clients) =>
-      clients.forEach((client) => {
-        client.postMessage({ type: "update", url: request.url });
-      })
-    );
+    notifyForegroundClients("update", request.url);
 
     return response;
   } catch (error) {
@@ -180,4 +198,12 @@ async function sendOfflinePostRequests() {
       await saveOfflinePostRequest(url, body); // Re-save if sending failed
     }
   }
+}
+
+function notifyForegroundClients(type = "update", url = "", data = []) {
+  self.clients.matchAll().then((clients) =>
+    clients.forEach((client) => {
+      client.postMessage({ type, url, data });
+    })
+  );
 }

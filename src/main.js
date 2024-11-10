@@ -15,6 +15,11 @@ renderPage();
 navigator.serviceWorker.addEventListener("message", (event) => {
   if (event.data?.type === "update")
     console.log(`Fresh data available for: ${event.data.url}!`);
+
+  if (event.data?.type === "analytics") {
+    console.log(`Fresh ANALYTICS available!`);
+    
+  }
 });
 
 if ("serviceWorker" in navigator) {
@@ -32,5 +37,3 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
-
-// if (window) window.addEventListener("beforeunload", clearEventListners);

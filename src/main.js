@@ -26,7 +26,13 @@ navigator.serviceWorker.addEventListener("message", (event) => {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.ready.then((registration) => {
     // Listen for online status
-    window.addEventListener("online", () => {
+    window.addEventListener("online", async () => {
+      const [_, data] = await getReadStats();
+
+      analyticsWorker.postMessage({
+        action: analyticsActions.COMPUTE_ALL,
+        reads: data,
+      });
       registration.active.postMessage({ action: "syncOfflineData" });
     });
 

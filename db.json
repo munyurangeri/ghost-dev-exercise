@@ -1,0 +1,390 @@
+{
+  "reads": [
+    {
+      "id": "616f",
+      "story": "O’Reilly",
+      "start_reading_at": "2024-11-08T16:31:39.428Z",
+      "end_reading_at": "2024-11-08T16:31:45.013Z",
+      "userId": "103"
+    },
+    {
+      "id": "a0cb",
+      "story": "O’Reilly",
+      "start_reading_at": "2024-11-08T16:31:44.980Z",
+      "end_reading_at": "2024-11-08T16:32:01.110Z",
+      "userId": "107"
+    },
+    {
+      "id": "d9bf",
+      "story": "Okafor",
+      "start_reading_at": "2024-11-08T16:32:01.071Z",
+      "end_reading_at": "2024-11-08T16:32:03.110Z",
+      "userId": "109"
+    },
+    {
+      "id": "99ac",
+      "story": "Nguyen",
+      "start_reading_at": "2024-11-08T16:32:03.037Z",
+      "end_reading_at": "2024-11-08T16:35:22.108Z",
+      "userId": "103"
+    },
+    {
+      "id": "528c",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T16:35:22.050Z",
+      "end_reading_at": "2024-11-08T16:35:25.344Z",
+      "userId": "101"
+    },
+    {
+      "id": "44d2",
+      "story": "O’Reilly",
+      "start_reading_at": "2024-11-08T16:35:25.303Z",
+      "end_reading_at": "2024-11-08T16:35:28.369Z",
+      "userId": "101"
+    },
+    {
+      "id": "f814",
+      "story": "Okafor",
+      "start_reading_at": "2024-11-08T16:35:28.286Z",
+      "end_reading_at": null,
+      "userId": "116"
+    },
+    {
+      "id": "a476",
+      "story": "Kumar ",
+      "start_reading_at": "2024-11-08T17:02:18.842Z",
+      "end_reading_at": null,
+      "userId": "115"
+    },
+    {
+      "id": "1b06",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T17:31:25.837Z",
+      "end_reading_at": null,
+      "userId": "104"
+    },
+    {
+      "id": "f56d",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T23:43:02.742Z",
+      "end_reading_at": null,
+      "userId": "119"
+    },
+    {
+      "id": "3d9c",
+      "story": "Okafor",
+      "start_reading_at": "2024-11-08T23:43:21.024Z",
+      "end_reading_at": null,
+      "userId": "109"
+    },
+    {
+      "id": "301f",
+      "story": "Kumar ",
+      "start_reading_at": "2024-11-08T23:43:22.447Z",
+      "end_reading_at": null,
+      "userId": "117"
+    },
+    {
+      "id": "7368",
+      "story": "Martinez",
+      "start_reading_at": "2024-11-08T23:43:29.460Z",
+      "end_reading_at": null,
+      "userId": "102"
+    }
+  ],
+  "stories": [
+    {
+      "id": "1",
+      "family": "Nguyen",
+      "story": "Linh and Hoa Nguyen moved to the city with dreams of opening their own bakery. After years of saving, they finally opened their shop, but a sudden economic downturn hit hard. With fewer customers, they struggled to stay afloat. To make ends meet, they cut back on supplies and started selling from home. Despite the challenges, their small kitchen became a local favorite, and their perseverance sparked a newfound community support.",
+      "images": [
+        "http://localhost:3000/images/nguyen/pic-1.jpg",
+        "http://localhost:3000/images/nguyen/pic-5.jpg",
+        "http://localhost:3000/images/nguyen/pic-6.jpg"
+      ]
+    },
+    {
+      "id": "5",
+      "family": "Martinez",
+      "story": "Carlos and Sofia Martinez had just welcomed their first baby when Carlos was laid off from his job. Bills piled up as Sofia took on extra shifts at the hospital. They sold their car, made sacrifices, and found creative ways to stretch their budget. Eventually, Carlos started a side gig repairing bikes, which soon grew into a small business. Though the struggle was tough, it brought the couple closer, teaching them resilience and a deep appreciation for each other.",
+      "images": [
+        "http://localhost:3000/images/martinez/pic.jpg",
+        "http://localhost:3000/images/martinez/pic-3.jpg"
+      ]
+    },
+    {
+      "id": "3",
+      "family": "O’Reilly",
+      "story": "Maeve and Sean O'Reilly lived on the coast, where Sean worked as a fisherman. When a storm destroyed much of the local fishing fleet, Sean’s work halted. They relied on savings and local food banks while Sean took up carpentry for nearby residents. As he rebuilt homes damaged by the storm, he discovered a new passion, leading the O’Reillys to open a small repair shop, which quickly became a community hub. Maeve supported him with her baking, creating a family business.",
+      "images": []
+    },
+    {
+      "id": "4",
+      "family": "Okafor",
+      "story": "The Okafors, Miriam and Chidi, cherished family gatherings in their big, bustling home. When Chidi lost his job, they faced the real fear of losing their home too. To keep their family together, they rented out rooms to friends and even strangers. Over time, their house became a community space, hosting dinners and celebrations that helped pay the bills. What began as a challenge transformed into a chance to create a wider family, bound by shared meals and laughter.",
+      "images": [
+        "http://localhost:3000/images/okafor/pic-2.jpg"
+      ]
+    },
+    {
+      "id": "2",
+      "family": "Kumar ",
+      "story": "Anika and Ramesh Kumar moved to the suburbs for a better life. Ramesh worked long hours as a driver, and Anika took care of their two kids. When Ramesh’s van broke down, they were faced with repairs they couldn’t afford. Anika, a skilled seamstress, began selling her handmade clothing online to bridge the gap. Soon, she gained a small following, and her new income supported the family through tough times. Together, they turned their struggle into a journey of teamwork and creativity.",
+      "images": []
+    }
+  ],
+  "users": [
+    {
+      "id": "100",
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john.doe@example.com",
+      "city": "New York",
+      "country": "USA",
+      "country_geo": {
+        "lat": 40.7128,
+        "long": -74.006
+      }
+    },
+    {
+      "id": "101",
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "email": "jane.smith@example.com",
+      "city": "Los Angeles",
+      "country": "USA",
+      "country_geo": {
+        "lat": 34.0522,
+        "long": -118.2437
+      }
+    },
+    {
+      "id": "102",
+      "first_name": "Emily",
+      "last_name": "Johnson",
+      "email": "emily.johnson@example.com",
+      "city": "New York",
+      "country": "USA",
+      "country_geo": {
+        "lat": 40.7128,
+        "long": -74.006
+      }
+    },
+    {
+      "id": "103",
+      "first_name": "Michael",
+      "last_name": "Williams",
+      "email": "michael.williams@example.com",
+      "city": "Chicago",
+      "country": "USA",
+      "country_geo": {
+        "lat": 41.8781,
+        "long": -87.6298
+      }
+    },
+    {
+      "id": "104",
+      "first_name": "Sarah",
+      "last_name": "Brown",
+      "email": "sarah.brown@example.com",
+      "city": "Chicago",
+      "country": "USA",
+      "country_geo": {
+        "lat": 41.8781,
+        "long": -87.6298
+      }
+    },
+    {
+      "id": "105",
+      "first_name": "David",
+      "last_name": "Miller",
+      "email": "david.miller@example.com",
+      "city": "Houston",
+      "country": "USA",
+      "country_geo": {
+        "lat": 29.7604,
+        "long": -95.3698
+      }
+    },
+    {
+      "id": "106",
+      "first_name": "Laura",
+      "last_name": "Davis",
+      "email": "laura.davis@example.com",
+      "city": "Houston",
+      "country": "USA",
+      "country_geo": {
+        "lat": 29.7604,
+        "long": -95.3698
+      }
+    },
+    {
+      "id": "107",
+      "first_name": "Robert",
+      "last_name": "Martinez",
+      "email": "robert.martinez@example.com",
+      "city": "Phoenix",
+      "country": "USA",
+      "country_geo": {
+        "lat": 33.4484,
+        "long": -112.074
+      }
+    },
+    {
+      "id": "108",
+      "first_name": "Linda",
+      "last_name": "Lopez",
+      "email": "linda.lopez@example.com",
+      "city": "Philadelphia",
+      "country": "USA",
+      "country_geo": {
+        "lat": 39.9526,
+        "long": -75.1652
+      }
+    },
+    {
+      "id": "109",
+      "first_name": "William",
+      "last_name": "Garcia",
+      "email": "william.garcia@example.com",
+      "city": "San Antonio",
+      "country": "USA",
+      "country_geo": {
+        "lat": 29.4241,
+        "long": -98.4936
+      }
+    },
+    {
+      "id": "110",
+      "first_name": "Karen",
+      "last_name": "Rodriguez",
+      "email": "karen.rodriguez@example.com",
+      "city": "San Diego",
+      "country": "USA",
+      "country_geo": {
+        "lat": 32.7157,
+        "long": -117.1611
+      }
+    },
+    {
+      "id": "111",
+      "first_name": "Steven",
+      "last_name": "Martinez",
+      "email": "steven.martinez@example.com",
+      "city": "Dallas",
+      "country": "USA",
+      "country_geo": {
+        "lat": 32.7767,
+        "long": -96.797
+      }
+    },
+    {
+      "id": "112",
+      "first_name": "Barbara",
+      "last_name": "Hernandez",
+      "email": "barbara.hernandez@example.com",
+      "city": "San Jose",
+      "country": "USA",
+      "country_geo": {
+        "lat": 37.3382,
+        "long": -121.8863
+      }
+    },
+    {
+      "id": "113",
+      "first_name": "James",
+      "last_name": "Wilson",
+      "email": "james.wilson@example.com",
+      "city": "Austin",
+      "country": "USA",
+      "country_geo": {
+        "lat": 30.2672,
+        "long": -97.7431
+      }
+    },
+    {
+      "id": "114",
+      "first_name": "Jessica",
+      "last_name": "Moore",
+      "email": "jessica.moore@example.com",
+      "city": "Jacksonville",
+      "country": "USA",
+      "country_geo": {
+        "lat": 30.3322,
+        "long": -81.6557
+      }
+    },
+    {
+      "id": "115",
+      "first_name": "Brian",
+      "last_name": "Taylor",
+      "email": "brian.taylor@example.com",
+      "city": "San Francisco",
+      "country": "USA",
+      "country_geo": {
+        "lat": 37.7749,
+        "long": -122.4194
+      }
+    },
+    {
+      "id": "116",
+      "first_name": "Laura",
+      "last_name": "Anderson",
+      "email": "laura.anderson@example.com",
+      "city": "San Francisco",
+      "country": "USA",
+      "country_geo": {
+        "lat": 37.7749,
+        "long": -122.4194
+      }
+    },
+    {
+      "id": "117",
+      "first_name": "Ryan",
+      "last_name": "Thomas",
+      "email": "ryan.thomas@example.com",
+      "city": "Columbus",
+      "country": "USA",
+      "country_geo": {
+        "lat": 39.9612,
+        "long": -82.9988
+      }
+    },
+    {
+      "id": "118",
+      "first_name": "Megan",
+      "last_name": "Martinez",
+      "email": "megan.martinez@example.com",
+      "city": "Fort Worth",
+      "country": "USA",
+      "country_geo": {
+        "lat": 32.7555,
+        "long": -97.3308
+      }
+    },
+    {
+      "id": "119",
+      "first_name": "Nathan",
+      "last_name": "White",
+      "email": "nathan.white@example.com",
+      "city": "Charlotte",
+      "country": "USA",
+      "country_geo": {
+        "lat": 35.2271,
+        "long": -80.8431
+      }
+    },
+    {
+      "id": "120",
+      "first_name": "Samantha",
+      "last_name": "Harris",
+      "email": "samantha.harris@example.com",
+      "city": "Seattle",
+      "country": "USA",
+      "country_geo": {
+        "lat": 47.6062,
+        "long": -122.3321
+      }
+    }
+  ]
+}

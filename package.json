@@ -4,14 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "server:start": "json-server db.json --static ./data --port 3030",
+    "dev": "concurrently \"json-server db.json --static ./data --port 3030\" \"vite\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "concurrently \"json-server db.json --static ./data --port 3030\" \"vite build\" \"vite preview\"",
+    "start": "concurrently \"json-server db.json --static ./data --port 3030\" \"vite build\" \"npm install \" \"npm install -g serve \" \"serve -s dist -l 5000\""
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.9"
+  },
+  "dependencies": {
+    "concurrently": "^9.0.1",
+    "json-server": "^1.0.0-beta.3"
   }
 }

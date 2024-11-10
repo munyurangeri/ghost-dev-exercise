@@ -18,7 +18,6 @@ navigator.serviceWorker.addEventListener("message", (event) => {
 
   if (event.data?.type === "analytics") {
     console.log(`Fresh ANALYTICS available!`);
-    
   }
 });
 
@@ -32,7 +31,8 @@ if ("serviceWorker" in navigator) {
     // Listen for visibility changes
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && navigator.onLine) {
-        registration.active.postMessage({ action: "syncOfflineData" });
+        // registration.active.postMessage({ action: "syncOfflineData" });
+        renderPage();
       }
     });
   });

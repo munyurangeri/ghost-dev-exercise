@@ -64,11 +64,6 @@ async function handleGetReadsRequest(request) {
     `${protocol}//${host}${pathname}${search}&_page=${page}&_per_page=${per_page}`
   );
 
-  console.log(
-    `${protocol}//${host}${pathname}${search}&_page=${page}&_per_page=${per_page}`
-  );
-  console.log({ currentReads });
-
   if (!currentReads || !currentReads.length) {
     const data = await fetchAndUpdateReadsCache(newRequest);
 

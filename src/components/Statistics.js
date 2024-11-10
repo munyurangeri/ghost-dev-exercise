@@ -57,7 +57,7 @@ const MostReadStory = ({ mostReadStory }) => {
     <div class="${cardStyles}">
       <span class="${cardHeaderStyles}">Most Read Story</span>     
 
-      <span class="text-base md:text-2xl font-semibold uppercase mb-6">
+      <span class="text-base md:text-xl font-semibold uppercase mb-6">
         ${mostReadStory?.story ? mostReadStory.story : ""} 
         <span class="text-xs font-light text-nowrap tracking-tighter capitalize text-[#F15C22]">
           ${format(mostReadStory)}

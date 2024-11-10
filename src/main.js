@@ -1,14 +1,16 @@
 import "./style.css";
-import { html } from "./lib";
+import { html, reactive } from "./lib";
 import Layout from "./Layout";
 import StoryPage from "./StoryPage";
 import { getReadStats } from "./api";
 
 const analyticsWorker = new Worker("../workers/reads-statistics.js");
+const imagesUrls = reactive([]);
+const statisticsData = reactive({});
 
 async function renderPage() {
   document.querySelector("#app").innerHTML = html`${Layout({
-    page: await StoryPage({ analyticsWorker }),
+    page: await StoryPage({ analyticsWorker, imagesUrls, statisticsData }),
   })}`;
 }
 
@@ -39,6 +41,7 @@ if ("serviceWorker" in navigator) {
 
     // Listen for visibility changes
     document.addEventListener("visibilitychange", async () => {
+      renderPage();
       if (document.visibilityState === "visible" && navigator.onLine) {
         const [_, data] = await getReadStats();
 

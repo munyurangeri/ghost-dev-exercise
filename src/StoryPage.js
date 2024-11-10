@@ -1,4 +1,4 @@
-import { html, reactive } from "./lib";
+import { html } from "./lib";
 import { getStory, getReadStats, addReadStat, updateReadStat } from "./api";
 import StoryCard from "./components/StoryCard";
 import StoryVideoCard from "./components/StoryVideoCard";
@@ -6,10 +6,7 @@ import Statistics from "./components/Statistics";
 import FeatureEnabled from "./components/FeatureEnabled";
 import { analyticsActions } from "./workersActions";
 
-const StoryPage = async ({ analyticsWorker }) => {
-  const imagesUrls = reactive([]);
-  const statisticsData = reactive({});
-
+const StoryPage = async ({ analyticsWorker, imagesUrls, statisticsData }) => {
   const [_, data] = await getReadStats();
 
   analyticsWorker.postMessage({

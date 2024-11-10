@@ -149,7 +149,7 @@ const StoryCard = ({
                           callback: handleNext,
                         })}
                     </div>
-                    <div class="w-full h-60 xl:mb-4 overflow-hidden">
+                    <div class="w-full h-62 xl:mb-4 overflow-hidden">
                         <div id="story-pane" class="w-full mb-0 px-0 xl:px-0 overflow-hidden transition-all duration-500 ease-in-out ">
                             <h1 id="family-name" class="inline-block font-bold font-sans text-3xl lg:text-[46px] leading-3xl lg:leading-[43px] tracking-tight mb-4 xl:mb-6">
                                 The ${currentFamily.get()} Family's Story

@@ -30,9 +30,9 @@ if ("serviceWorker" in navigator) {
 
     // Listen for visibility changes
     document.addEventListener("visibilitychange", () => {
+      renderPage();
       if (document.visibilityState === "visible" && navigator.onLine) {
-        // registration.active.postMessage({ action: "syncOfflineData" });
-        renderPage();
+        registration.active.postMessage({ action: "syncOfflineData" });
       }
     });
   });

@@ -2,6 +2,7 @@ import { getReadStats } from "../api";
 import { html, paginate, reactive, delegateEvent } from "../lib";
 import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
+import { analyticsActions } from "../workersActions";
 
 const StoryCard = ({
   storyData,
@@ -121,7 +122,10 @@ const StoryCard = ({
 
       // Update statistics
       const [_, data] = await getReadStats();
-      statisticsWorker.postMessage({ action: "compute:all", reads: data });
+      statisticsWorker.postMessage({
+        action: analyticsActions.COMPUTE_ALL,
+        reads: data,
+      });
 
       pane.classList.remove("-translate-y-full");
     }, 700);

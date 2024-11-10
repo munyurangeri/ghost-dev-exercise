@@ -4,6 +4,7 @@ import StoryCard from "./components/StoryCard";
 import StoryVideoCard from "./components/StoryVideoCard";
 import Statistics from "./components/Statistics";
 import FeatureEnabled from "./components/FeatureEnabled";
+import { analyticsActions } from "./workersActions";
 
 const StoryPage = async () => {
   const imagesUrls = reactive([]);
@@ -13,7 +14,7 @@ const StoryPage = async () => {
 
   const analyticsWorker = new Worker("../workers/reads-statistics.js");
 
-  analyticsWorker.postMessage({ action: "compute:all", reads: data });
+  analyticsWorker.postMessage({ action: analyticsActions.COMPUTE_ALL, reads: data });
 
   analyticsWorker.onmessage = function (event) {
     const { data } = event;

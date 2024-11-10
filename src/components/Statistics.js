@@ -1,7 +1,7 @@
 import { html, formatNumber } from "../lib";
 
 const cardStyles =
-  "bg-[#262861] font-mono text-white h-28 w-40  md:w-52 rounded-lg shadow-2xl flex flex-col justify-center items-center py-4";
+  "bg-[#262861] font-mono text-white h-28 w-44 md:w-52 rounded-lg shadow-2xl flex flex-col justify-center items-center p-4";
 
 const cardHeaderStyles =
   "block w-full mb-2 px-2 text-[#FFC840] text-xs font-thin tracking-tighter";

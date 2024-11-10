@@ -30,7 +30,9 @@ const CardActionButton = ({
       ? previsousIcon
       : closeIcon;
 
-  const classes = `${selector} flex gap-2 p-[16px] md:p-[32px] lg:p-[16px] rounded-full ${className} ${!isDisabled ? "hover:text-[#262861] hover:bg-white" : ""}`;
+  const classes = `${selector} flex gap-2 p-[32px] lg:p-[16px] rounded-full ${className} ${
+    !isDisabled ? "hover:text-[#262861] hover:bg-white" : ""
+  }`;
 
   if (callback) {
     delegateEvent("click", `.${selector}`, callback);

@@ -50,7 +50,7 @@ const MostReadStory = ({ mostReadStory }) => {
         : "yet!"
     }</span>`;
 
-    return `${value} ${label}`;
+    return `x${value}`;
   };
 
   const markups = `

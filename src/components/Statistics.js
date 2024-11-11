@@ -59,7 +59,7 @@ const MostReadStory = ({ mostReadStory }) => {
 
       <span class="text-base md:text-xl font-semibold uppercase mb-6">
         ${mostReadStory?.story ? mostReadStory.story : ""} 
-        <span class="text-xs font-light text-nowrap tracking-tighter capitalize text-[#F15C22]">
+        <span class="text-xs font-light text-nowrap tracking-tighter lowercase text-[#F15C22]">
           ${format(mostReadStory)}
         </span>
       </span>

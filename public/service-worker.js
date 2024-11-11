@@ -4,7 +4,13 @@ const FILES_CACHE_NAME = "files-cache-v3";
 const IMAGES_CACHE_NAME = "images-cache-v3";
 const API_END_POINTS = ["/stories/"];
 
-const FILES_TO_CACHE = ["/", "/manifest.json", "/idb.js", "/robots.txt"];
+const FILES_TO_CACHE = [
+  "/",
+  "/workers/reads-statistics.js",
+  "/manifest.json",
+  "/idb.js",
+  "/robots.txt",
+];
 
 const CONTENT_TYPE_JSON = { "Content-Type": "application/json" };
 
@@ -64,14 +70,18 @@ async function handleGetReadsRequest(request) {
     `${protocol}//${host}${pathname}${search}&_page=${page}&_per_page=${per_page}`
   );
 
-  if (!currentReads || !currentReads.length) {
-    const data = await fetchAndUpdateReadsCache(newRequest);
+  if (!currentReads) {
+    if (navigator.onLine) {
+      const data = await fetchAndUpdateReadsCache(newRequest);
 
-    return new Response(JSON.stringify(data), CONTENT_TYPE_JSON);
+      return new Response(JSON.stringify(data), CONTENT_TYPE_JSON);
+    }
+
+    return fallBackContent();
   }
 
   // Update reads cache
-  fetchAndUpdateReadsCache(newRequest);
+  if (navigator.onLine) fetchAndUpdateReadsCache(newRequest);
 
   return new Response(JSON.stringify(currentReads), CONTENT_TYPE_JSON);
 }
@@ -96,9 +106,13 @@ async function fetchAndUpdateReadsCache(request) {
 
 async function handleNonApiRequest(request) {
   return caches.match(request).then(async (cache) => {
-    if (!cache) return fetchAndUpdateNonApiRequest(request);
+    if (!cache) {
+      if (navigator.onLine) return fetchAndUpdateNonApiRequest(request);
 
-    fetchAndUpdateNonApiRequest(request);
+      return fallBackContent();
+    }
+
+    if (navigator.onLine) fetchAndUpdateNonApiRequest(request);
 
     return cache;
   });
@@ -110,7 +124,11 @@ async function fetchAndUpdateNonApiRequest(request) {
 
     const url = new URL(request.url);
 
-    if (url.pathname.startsWith("/images/") || url.host.includes("placehold")) {
+    if (
+      url.pathname.startsWith("/icons/") ||
+      url.pathname.startsWith("/images/") ||
+      url.host.includes("placehold")
+    ) {
       const imageCache = await caches.open(IMAGES_CACHE_NAME);
       await imageCache.put(url.href, response.clone());
     }
@@ -134,10 +152,14 @@ async function fetchAndUpdateNonApiRequest(request) {
 async function handleApiGetRequest(request) {
   const cachedData = await getCachedData(request.url);
 
-  if (!cachedData) return fetchAndUpdateCache(request);
+  if (!cachedData) {
+    if (navigator.onLine) return fetchAndUpdateCache(request);
+
+    return fallBackContent();
+  }
 
   // Update cache and respond with current cache
-  fetchAndUpdateCache(request);
+  if (navigator.onLine) fetchAndUpdateCache(request);
 
   return new Response(JSON.stringify(cachedData.data), CONTENT_TYPE_JSON);
 }
@@ -203,5 +225,14 @@ function notifyForegroundClients(type = "update", url = "", data = []) {
     clients.forEach((client) => {
       client.postMessage({ type, url, data });
     })
+  );
+}
+
+function fallBackContent() {
+  return new Response(
+    JSON.stringify({ message: "You are offline! No Internet connection" }),
+    {
+      status: 503,
+    }
   );
 }

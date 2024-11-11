@@ -96,36 +96,39 @@ async function fetchAndUpdateReadsCache(request) {
 
 async function handleNonApiRequest(request) {
   return caches.match(request).then(async (cache) => {
-    if (cache) return cache;
+    if (!cache) return fetchAndUpdateNonApiRequest(request);
 
-    try {
-      const response = await fetch(request);
+    fetchAndUpdateNonApiRequest(request);
 
-      const url = new URL(request.url);
-
-      if (
-        url.pathname.startsWith("/images/") ||
-        url.host.includes("placehold")
-      ) {
-        const imageCache = await caches.open(IMAGES_CACHE_NAME);
-        await imageCache.put(url.href, response.clone());
-      }
-
-      if (
-        url.pathname.startsWith("/assets/index-") ||
-        url.hostname.startsWith("fonts.")
-      ) {
-        if (response && response.ok) {
-          const fileCache = await caches.open(FILES_CACHE_NAME);
-          await fileCache.put(url.href, response.clone());
-        }
-      }
-
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+    return cache;
   });
+}
+
+async function fetchAndUpdateNonApiRequest(request) {
+  try {
+    const response = await fetch(request);
+
+    const url = new URL(request.url);
+
+    if (url.pathname.startsWith("/images/") || url.host.includes("placehold")) {
+      const imageCache = await caches.open(IMAGES_CACHE_NAME);
+      await imageCache.put(url.href, response.clone());
+    }
+
+    if (
+      url.pathname.startsWith("/assets/index-") ||
+      url.hostname.startsWith("fonts.")
+    ) {
+      if (response && response.ok) {
+        const fileCache = await caches.open(FILES_CACHE_NAME);
+        await fileCache.put(url.href, response.clone());
+      }
+    }
+
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function handleApiGetRequest(request) {

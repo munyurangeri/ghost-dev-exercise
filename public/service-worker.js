@@ -95,13 +95,14 @@ async function fetchAndUpdateReadsCache(request) {
     // Update indexedDB reads
     return saveReadsData(data)
       .then((result) => {
-        // if (next) notifyForegroundClients("analytics");
+        if (next) notifyForegroundClients("analytics");
       })
       .catch((error) => console.log({ error }));
 
     // console.log({ currentReads, data });
   } catch (error) {
     console.log({ error });
+    
   }
 }
 

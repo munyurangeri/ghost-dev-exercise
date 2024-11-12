@@ -101,6 +101,7 @@ async function fetchAndUpdateReadsCache(request) {
     // console.log({ currentReads, data });
   } catch (error) {
     console.log({ error });
+    return;
   }
 }
 

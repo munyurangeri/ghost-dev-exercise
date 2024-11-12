@@ -60,7 +60,7 @@ async function handleGetReadsRequest(request) {
   const currentReads = await getAllReads();
 
   // TODO: Find a way to efficiently fetch historical data for analytics
-  const per_page = 200;
+  const per_page = 20;
   const page =
     currentReads && currentReads.length
       ? Math.floor(currentReads.length / per_page) + 1
@@ -95,7 +95,7 @@ async function fetchAndUpdateReadsCache(request) {
     // Update indexedDB reads
     return saveReadsData(data)
       .then((result) => {
-        if (next) notifyForegroundClients("analytics");
+        if (next && last - next <= 3) notifyForegroundClients("analytics");
       })
       .catch((error) => console.log({ error }));
 

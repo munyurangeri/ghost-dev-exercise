@@ -95,7 +95,12 @@ async function fetchAndUpdateReadsCache(request) {
     // Update indexedDB reads
     return saveReadsData(data)
       .then((result) => {
-        if (next && last - next <= 3) notifyForegroundClients("analytics");
+        if (next) {
+          const wait = setTimeout(() => {
+            clearTimeout(wait);
+            notifyForegroundClients("analytics");
+          }, 15 * 1000);
+        }
       })
       .catch((error) => console.log({ error }));
 

@@ -17,22 +17,6 @@ async function renderPage() {
 
 renderPage();
 
-navigator.serviceWorker.addEventListener("message", async (event) => {
-  if (event.data?.type === "update")
-    console.log(`Fresh data available for: ${event.data.url}!`);
-
-  if (event.data?.type === "analytics") {
-    console.log(`Fresh ANALYTICS available!`);
-
-    const [_, data] = await getReadStats();
-
-    analyticsWorker.postMessage({
-      action: analyticsActions.COMPUTE_ALL,
-      reads: data,
-    });
-  }
-});
-
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.ready.then((registration) => {
     // Listen for online status
@@ -56,6 +40,24 @@ if ("serviceWorker" in navigator) {
           reads: data,
         });
         registration.active.postMessage({ action: "syncOfflineData" });
+      }
+    });
+
+    navigator.serviceWorker.addEventListener("message", async (event) => {
+      if (document.readyState === "complete") {
+        if (event.data?.type === "update")
+          console.log(`Fresh data available for: ${event.data.url}!`);
+
+        if (event.data?.type === "analytics") {
+          console.log(`Fresh ANALYTICS available!`);
+
+          const [_, data] = await getReadStats();
+
+          analyticsWorker.postMessage({
+            action: analyticsActions.COMPUTE_ALL,
+            reads: data,
+          });
+        }
       }
     });
   });

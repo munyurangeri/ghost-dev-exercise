@@ -63,7 +63,7 @@ async function handleGetReadsRequest(request) {
   const per_page = 20;
   const page =
     currentReads && currentReads.length
-      ? Math.floor(currentReads.length / per_page) + 1
+      ? Math.ceil(currentReads.length / per_page) + 1
       : 1;
 
   const { protocol, host, pathname, search } = new URL(request.url);
@@ -72,11 +72,7 @@ async function handleGetReadsRequest(request) {
   );
 
   if (!currentReads) {
-    if (navigator.onLine) {
-      const data = await fetchAndUpdateReadsCache(newRequest);
-
-      return new Response(JSON.stringify(data), CONTENT_TYPE_JSON);
-    }
+    if (navigator.onLine) return fetchAndUpdateReadsCache(newRequest);
 
     return fallBackContent();
   }
@@ -90,19 +86,18 @@ async function handleGetReadsRequest(request) {
 async function fetchAndUpdateReadsCache(request) {
   try {
     const res = await fetch(request);
-    const { data, next, first, last, items } = await res.json();
+    const { data, next } = await res.json();
+
+    // console.log({ data, next, last, items });
 
     // Update indexedDB reads
-    return saveReadsData(data)
-      .then((result) => {
-        if (next) notifyForegroundClients("analytics");
-      })
-      .catch((error) => console.log({ error }));
+    saveReadsData(data);
 
-    // console.log({ currentReads, data });
+    if (next) notifyForegroundClients("analytics");
+
+    return new Response(JSON.stringify(data), CONTENT_TYPE_JSON);
   } catch (error) {
-    console.log({ error });
-    
+    return new Response("could not fetch and update cache", { status: 505 });
   }
 }
 
@@ -148,6 +143,7 @@ async function fetchAndUpdateNonApiRequest(request) {
     return response;
   } catch (error) {
     console.error(error);
+    return new Response({ error: "Network error" }, { status: 500 });
   }
 }
 

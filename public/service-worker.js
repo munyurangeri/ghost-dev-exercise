@@ -59,7 +59,6 @@ self.addEventListener("fetch", (event) => {
 async function handleGetReadsRequest(request) {
   const currentReads = await getAllReads();
 
-  // TODO: Find a way to efficiently fetch historical data for analytics
   const per_page = 20;
   const page =
     currentReads && currentReads.length
@@ -87,8 +86,6 @@ async function fetchAndUpdateReadsCache(request) {
   try {
     const res = await fetch(request);
     const { data, next } = await res.json();
-
-    // console.log({ data, next, last, items });
 
     // Update indexedDB reads
     saveReadsData(data);

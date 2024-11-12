@@ -45,8 +45,10 @@ function computeReadsPerStory(rowData) {
   const data = Object.entries(rowData).map(([index, read]) => read);
 
   return data.reduce((acc, { story }) => {
-    const key = story?.trim();
-    acc[key] = (acc[key] || 0) + 1;
+    if (story) {
+      const key = story.trim();
+      acc[key] = (acc[key] || 0) + 1;
+    }
     return acc;
   }, {});
 }

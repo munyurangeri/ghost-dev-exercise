@@ -59,7 +59,8 @@ self.addEventListener("fetch", (event) => {
 async function handleGetReadsRequest(request) {
   const currentReads = await getAllReads();
 
-  const per_page = 20;
+  // TODO: Find a way to efficiently fetch historical data for analytics
+  const per_page = 200;
   const page =
     currentReads && currentReads.length
       ? Math.floor(currentReads.length / per_page) + 1
@@ -101,7 +102,6 @@ async function fetchAndUpdateReadsCache(request) {
     // console.log({ currentReads, data });
   } catch (error) {
     console.log({ error });
-    return;
   }
 }
 

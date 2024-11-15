@@ -42,7 +42,7 @@ const StoryPage = async ({ analyticsWorker, imagesUrls, statisticsData }) => {
 async function getStoryAndUpdateReadStats(lastId = 0, readId = 0) {
   let id = 0;
 
-  while (!id || id === lastId) {
+  while (!id || id === parseInt(lastId)) {
     id = Math.floor(Math.random() * 5) + 1;
   }
 

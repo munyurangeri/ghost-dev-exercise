@@ -109,34 +109,41 @@ async function handleNonApiRequest(request) {
 }
 
 async function fetchAndUpdateNonApiRequest(request) {
-  const url = new URL(request.url);
+  const { hostname, pathname, href } = new URL(request.url);
 
-  return fetch(request)
-    .then(async (response) => {
-      if (
-        url.pathname.startsWith("/icons/") ||
-        url.pathname.startsWith("/images/") ||
-        url.host.includes("placehold")
-      ) {
-        const imageCache = await caches.open(IMAGES_CACHE_NAME);
-        await imageCache.put(url.href, response.clone());
-      }
+  const isImageOrIcon =
+    pathname.startsWith("/icons/") ||
+    pathname.startsWith("/images/") ||
+    hostname.startsWith("placehold.co");
 
-      if (
-        url.pathname.startsWith("/assets/index-") ||
-        url.hostname.startsWith("fonts.")
-      ) {
-        if (response && response.ok) {
-          const fileCache = await caches.open(FILES_CACHE_NAME);
-          await fileCache.put(url.href, response.clone());
-        }
-      }
+  const isAssetOrFont =
+    pathname.startsWith("/assets/index-") || hostname.startsWith("fonts.");
 
-      return response;
-    })
-    .catch(() => {
-      return caches.match(request);
-    });
+  if (isImageOrIcon) {
+    return fetch(request)
+      .then((response) => {
+        caches
+          .open(IMAGES_CACHE_NAME)
+          .then((cache) => cache.put(href, response.clone()));
+        return response;
+      })
+      .catch(() => caches.match(request));
+  }
+
+  if (isAssetOrFont) {
+    return fetch(request)
+      .then((response) => {
+        if (response.ok)
+          caches
+            .open(FILES_CACHE_NAME)
+            .then((cache) => cache.put(href, response.clone()));
+
+        return response;
+      })
+      .catch(() => caches.match(request));
+  }
+
+  return fetch(request);
 }
 
 async function handleApiGetRequest(request) {

@@ -100,79 +100,65 @@ async function fetchAndUpdateReadsCache(request) {
 
 async function handleNonApiRequest(request) {
   return caches.match(request).then(async (cache) => {
-    if (!cache) {
-      if (navigator.onLine) return fetchAndUpdateNonApiRequest(request);
+    if (!cache) return fetchAndUpdateNonApiRequest(request);
 
-      return fallBackContent();
-    }
-
-    if (navigator.onLine) fetchAndUpdateNonApiRequest(request);
+    fetchAndUpdateNonApiRequest(request);
 
     return cache;
   });
 }
 
 async function fetchAndUpdateNonApiRequest(request) {
-  try {
-    const response = await fetch(request);
+  const url = new URL(request.url);
 
-    const url = new URL(request.url);
-
-    if (
-      url.pathname.startsWith("/icons/") ||
-      url.pathname.startsWith("/images/") ||
-      url.host.includes("placehold")
-    ) {
-      const imageCache = await caches.open(IMAGES_CACHE_NAME);
-      await imageCache.put(url.href, response.clone());
-    }
-
-    if (
-      url.pathname.startsWith("/assets/index-") ||
-      url.hostname.startsWith("fonts.")
-    ) {
-      if (response && response.ok) {
-        const fileCache = await caches.open(FILES_CACHE_NAME);
-        await fileCache.put(url.href, response.clone());
+  return fetch(request)
+    .then(async (response) => {
+      if (
+        url.pathname.startsWith("/icons/") ||
+        url.pathname.startsWith("/images/") ||
+        url.host.includes("placehold")
+      ) {
+        const imageCache = await caches.open(IMAGES_CACHE_NAME);
+        await imageCache.put(url.href, response.clone());
       }
-    }
 
-    return response;
-  } catch (error) {
-    console.error(error);
-    return new Response({ error: "Network error" }, { status: 500 });
-  }
+      if (
+        url.pathname.startsWith("/assets/index-") ||
+        url.hostname.startsWith("fonts.")
+      ) {
+        if (response && response.ok) {
+          const fileCache = await caches.open(FILES_CACHE_NAME);
+          await fileCache.put(url.href, response.clone());
+        }
+      }
+
+      return response;
+    })
+    .catch(() => {
+      return caches.match(request);
+    });
 }
 
 async function handleApiGetRequest(request) {
   const cachedData = await getCachedData(request.url);
 
-  if (!cachedData) {
-    if (navigator.onLine) return fetchAndUpdateCache(request);
-
-    return fallBackContent();
-  }
-
-  // Update cache and respond with current cache
-  if (navigator.onLine) fetchAndUpdateCache(request);
+  if (!cachedData) return fetchAndUpdateCache(request);
 
   return new Response(JSON.stringify(cachedData.data), CONTENT_TYPE_JSON);
 }
 
 async function fetchAndUpdateCache(request) {
-  try {
-    const response = await fetch(request);
-    const data = await response.clone().json();
+  return fetch(request)
+    .then(async (response) => {
+      const data = await response.clone().json();
+      await saveToCache(request.url, data);
 
-    await saveToCache(request.url, data);
+      // Notify the client of fresh data (if in foreground)
+      notifyForegroundClients("update", request.url);
 
-    // Notify the client of fresh data (if in foreground)
-    notifyForegroundClients("update", request.url);
-
-    return response;
-  } catch (error) {
-    return new Response({ error: "Network error" }, { status: 500 });
-  }
+      return response;
+    })
+    .catch(() => fallBackContent());
 }
 
 async function handleApiPostRequest(request) {
@@ -180,18 +166,17 @@ async function handleApiPostRequest(request) {
   const requestClone = request.clone();
   const body = await requestClone.json();
 
-  try {
-    // Attempt to send request online
-    const response = await fetch(request);
-    return response;
-  } catch (error) {
-    // If failed or offline, save POST request to IndexedDB
-    await saveOfflinePostRequest(request.url, body);
+  return fetch(request)
+    .then((response) => response)
+    .catch(async () => {
+      // If failed or offline, save POST request to IndexedDB
+      await saveOfflinePostRequest(request.url, body);
 
-    return new Response(JSON.stringify({ message: "saved locally", ...body }), {
-      status: 202,
+      return new Response(
+        JSON.stringify({ message: "saved locally", ...body }),
+        { status: 202 }
+      );
     });
-  }
 }
 
 self.addEventListener("message", (event) => {
@@ -209,7 +194,7 @@ async function sendOfflinePostRequests() {
         headers: { ...CONTENT_TYPE_JSON },
       });
     } catch (error) {
-      console.error("Failed to send offline POST request:", error);
+      console.log({ error, url, body });
       await saveOfflinePostRequest(url, body); // Re-save if sending failed
     }
   }
@@ -225,9 +210,13 @@ function notifyForegroundClients(type = "update", url = "", data = []) {
 
 function fallBackContent() {
   return new Response(
-    JSON.stringify({ message: "You are offline! No Internet connection" }),
-    {
-      status: 503,
-    }
+    JSON.stringify({
+      id: 0,
+      family: "unknown",
+      story:
+        "Sorry, there is no story! Check if you have Internet connection and try again!",
+      images: [],
+    }),
+    { status: 202 }
   );
 }

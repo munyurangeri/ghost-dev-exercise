@@ -157,11 +157,14 @@ async function handleApiGetRequest(request) {
 async function fetchAndUpdateCache(request) {
   return fetch(request)
     .then(async (response) => {
-      const data = await response.clone().json();
-      await saveToCache(request.url, data);
-
-      // Notify the client of fresh data (if in foreground)
-      notifyForegroundClients("update", request.url);
+      response
+        .clone()
+        .json()
+        .then((data) => {
+          return saveToCache(request.url, data).then(() =>
+            notifyForegroundClients("update", request.url)
+          );
+        });
 
       return response;
     })

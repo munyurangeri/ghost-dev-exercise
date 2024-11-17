@@ -6,12 +6,16 @@
   "scripts": {
     "server:start": "json-server db.json --static ./data --port 3030",
     "dev": "concurrently \"json-server db.json --static ./data --port 3030\" \"vite\"",
+    "lint": "eslint ./src",
     "build": "vite build",
     "preview": "concurrently \"json-server db.json --static ./data --port 3030\" \"vite build\" \"vite preview\"",
     "start": "concurrently \"json-server db.json --static ./data --port 3030\" \"vite build\" \"npm install \" \"npm install -g serve \" \"serve -s dist -l 5000\""
   },
   "devDependencies": {
+    "@eslint/js": "^9.15.0",
     "autoprefixer": "^10.4.20",
+    "eslint": "^9.15.0",
+    "globals": "^15.12.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.9"

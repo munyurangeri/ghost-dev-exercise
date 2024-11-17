@@ -55,7 +55,7 @@ export function granularReactive(initialObject) {
   const primitives = {};
 
   for (const key in initialObject) {
-    if (initialObject.hasOwnProperty(key))
+    if (key in initialObject)
       primitives[key] = reactivePrimitive(initialObject[key]);
   }
 
@@ -150,12 +150,12 @@ export function promise(promise, errorsToCatch) {
     });
 }
 
-export function fetch(url, method = "GET", body = {}) {
-  // TODO: Handle all methods, setting headers as neccessary
-  // TODO: How about caching? how `swr` lib works? Can I make something like it?
+// export function fetch(url, method = "GET", body = {}) {
+//   // TODO: Handle all methods, setting headers as neccessary
+//   // TODO: How about caching? how `swr` lib works? Can I make something like it?
 
-  return [undefined, data];
-}
+//   return [undefined, data];
+// }
 
 export function onMount() {
   // TODO: abstruct away the use of `setInterval` when subscribing to data change that has to update UI (Html element)

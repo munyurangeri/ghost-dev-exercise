@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { getReadStats } from "../api";
-import { html, paginate, reactive, delegateEvent } from "../lib";
+import { html, paginate, reactive } from "../lib";
 import CardActionButton from "./CardActionButton";
 import PrimaryButton from "./PrimaryButton";
 import { analyticsActions } from "../workersActions";

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./style.css";
 import { html, reactive } from "./lib";
 import Layout from "./Layout";

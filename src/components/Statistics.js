@@ -42,13 +42,13 @@ const MostReadStory = ({ mostReadStory }) => {
       mostReadStory?.count ? formatNumber(mostReadStory.count) : "No read"
     }`;
 
-    const label = `<span class=""> ${
-      mostReadStory?.count > 1
-        ? "times"
-        : mostReadStory?.count === 1
-        ? "time"
-        : "yet!"
-    }</span>`;
+    // const label = `<span class=""> ${
+    //   mostReadStory?.count > 1
+    //     ? "times"
+    //     : mostReadStory?.count === 1
+    //     ? "time"
+    //     : "yet!"
+    // }</span>`;
 
     return `x${value}`;
   };

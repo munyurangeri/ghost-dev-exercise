@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { html } from "./lib";
 import { getStory, getReadStats, addReadStat, updateReadStat } from "./api";
 import StoryCard from "./components/StoryCard";
